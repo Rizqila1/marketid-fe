@@ -157,7 +157,8 @@ export default function RegisterPage() {
             </Button>
           </Form>
           <p className="paragraph__5 text-center mb-0">
-            Already have an account? please <Link>login</Link>.
+            Already have an account? please{" "}
+            <Link to="/marketid/login">Login</Link>.
           </p>
         </Card.Body>
       </Card>
