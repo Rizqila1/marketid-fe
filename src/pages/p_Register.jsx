@@ -33,33 +33,33 @@ export default function RegisterPage() {
     setShowPassword(!showPassword);
   }
 
+  function handleRegister(form) {
+    axios
+      .post("/users/register", form)
+      .then((response) => {
+        const message = response.data.message;
+
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.SUCCESS,
+        });
+
+        navigate("marketid/home");
+      })
+      .catch((error) => {
+        const message = error.response.data.message;
+
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.ERROR,
+        });
+      });
+  }
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      const form = values;
-      axios
-        .post("/users/register", form)
-        .then((response) => {
-          const message = response.data.message;
-
-          toast(handleErrorMessage(message), {
-            position: toast.POSITION.TOP_RIGHT,
-            type: toast.TYPE.SUCCESS,
-          });
-
-          navigate("marketid/home");
-        })
-        .catch((error) => {
-          const message = error.response.data.message;
-
-          toast(handleErrorMessage(message), {
-            position: toast.POSITION.TOP_RIGHT,
-            type: toast.TYPE.ERROR,
-          });
-          console.log(error.response.data);
-        });
-    },
+    onSubmit: handleRegister,
   });
 
   return (
@@ -129,19 +129,20 @@ export default function RegisterPage() {
                 />
                 <Button
                   style={{
+                    backgroundColor: "white",
                     outline: "none",
                     borderTop: "1px solid #ACB5BD",
                     borderRight: "1px solid #ACB5BD",
                     borderBottom: "1px solid #ACB5BD",
                     borderLeft: "none",
                   }}
-                  className="bg-white"
+                  className={formik.errors.password && "bg-danger"}
                   onClick={handleShowPassword}
                 >
                   {showPassword ? (
-                    <i className="bi bi-eye-fill text-dark"></i>
-                  ) : (
                     <i className="bi bi-eye-slash-fill text-dark"></i>
+                  ) : (
+                    <i className="bi bi-eye-fill text-dark"></i>
                   )}
                 </Button>
               </InputGroup>
