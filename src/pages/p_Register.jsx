@@ -1,8 +1,11 @@
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import { axiosInstance as axios } from "../config/httpsAxios";
+import { toast } from "react-toastify";
+import handleErrorMessage from "../utils/handleErrorMessage";
 
 const initialValues = {
   full_name: "",
@@ -24,6 +27,7 @@ const validationSchema = Yup.object({
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   function handleShowPassword() {
     setShowPassword(!showPassword);
@@ -33,8 +37,28 @@ export default function RegisterPage() {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      console.log(values);
+      const form = values;
+      axios
+        .post("/users/register", form)
+        .then((response) => {
+          const message = response.data.message;
+
+          toast(handleErrorMessage(message), {
+            position: toast.POSITION.TOP_RIGHT,
+            type: toast.TYPE.SUCCESS,
+          });
+
+          navigate("marketid/home");
+        })
+        .catch((error) => {
+          const message = error.response.data.message;
+
+          toast(handleErrorMessage(message), {
+            position: toast.POSITION.TOP_RIGHT,
+            type: toast.TYPE.ERROR,
+          });
+          console.log(error.response.data);
+        });
     },
   });
 
@@ -50,6 +74,7 @@ export default function RegisterPage() {
                 Full Name
               </Form.Label>
               <Form.Control
+                style={{ border: "1px solid #ACB5BD" }}
                 id="full_name"
                 name="full_name"
                 type="text"
@@ -71,6 +96,7 @@ export default function RegisterPage() {
                 Email address
               </Form.Label>
               <Form.Control
+                style={{ border: "1px solid #ACB5BD" }}
                 id="email"
                 name="email"
                 type="email"
@@ -92,6 +118,7 @@ export default function RegisterPage() {
               </Form.Label>
               <InputGroup>
                 <Form.Control
+                  style={{ border: "1px solid #ACB5BD" }}
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -100,7 +127,17 @@ export default function RegisterPage() {
                   onChange={formik.handleChange}
                   className={formik.errors.password && "border-danger"}
                 />
-                <Button className="bg-white" onClick={handleShowPassword}>
+                <Button
+                  style={{
+                    outline: "none",
+                    borderTop: "1px solid #ACB5BD",
+                    borderRight: "1px solid #ACB5BD",
+                    borderBottom: "1px solid #ACB5BD",
+                    borderLeft: "none",
+                  }}
+                  className="bg-white"
+                  onClick={handleShowPassword}
+                >
                   {showPassword ? (
                     <i className="bi bi-eye-fill text-dark"></i>
                   ) : (
