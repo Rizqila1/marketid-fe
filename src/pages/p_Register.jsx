@@ -140,9 +140,21 @@ export default function RegisterPage() {
                   onClick={handleShowPassword}
                 >
                   {showPassword ? (
-                    <i className="bi bi-eye-slash-fill text-dark"></i>
+                    <i
+                      className={
+                        formik.errors.password
+                          ? "bi bi-eye-slash-fill text-white"
+                          : "bi bi-eye-slash-fill text-dark"
+                      }
+                    ></i>
                   ) : (
-                    <i className="bi bi-eye-fill text-dark"></i>
+                    <i
+                      className={
+                        formik.errors.password
+                          ? "bi bi-eye-fill text-white"
+                          : "bi bi-eye-fill text-dark"
+                      }
+                    ></i>
                   )}
                 </Button>
               </InputGroup>
