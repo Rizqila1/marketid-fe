@@ -7,10 +7,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/typograph.css";
 
+import stores from "./stores";
+import { Provider } from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={ROUTERS} />
+    <Provider store={stores}>
+      <RouterProvider router={ROUTERS} />
+    </Provider>
   </React.StrictMode>
 );
 

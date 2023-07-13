@@ -1,8 +1,11 @@
-export default function Home() {
+import { useSelector } from "react-redux";
 
+export default function Home() {
+  const { user, token } = useSelector((state) => state.auth);
   return (
-    <div>
-      <h1>HOME</h1>
-    </div>
-  )
+    <>
+      {JSON.stringify(user)}
+      {JSON.stringify(token)}
+    </>
+  );
 }

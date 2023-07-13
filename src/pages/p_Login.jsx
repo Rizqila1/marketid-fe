@@ -6,6 +6,7 @@ import { useState } from "react";
 import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
+import { useDispatch } from "react-redux";
 
 const initialValues = {
   email: "",
@@ -23,6 +24,9 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  // REDUX STORE
+  const dispatch = useDispatch();
+
   function handleShowPassword() {
     setShowPassword(!showPassword);
   }
@@ -31,13 +35,24 @@ export default function LoginPage() {
     axios
       .post("/users/login", form)
       .then((response) => {
-        const { data, message } = response.data;
+        const { _id, token, role } = response.data.data;
 
+        // SET STORE
+        dispatch({ type: "AUTH_TOKEN", value: token });
+        dispatch({ type: "AUTH_USER", value: { _id, role } });
+
+        // SET LOCAL STORAGE
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify({ _id, role }));
+
+        // TOAST POPUP
+        const message = response.data.message;
         toast(handleErrorMessage(message), {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.SUCCESS,
         });
 
+        // REDIRECT TO HOME PAGE
         navigate("/marketid/home");
       })
       .catch((error) => {

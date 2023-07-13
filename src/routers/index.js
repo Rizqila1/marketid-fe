@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Route
+  Route,
 } from "react-router-dom";
 
 // IMPORT COMPONENT, LAYOUT, PAGE & AUTH
@@ -18,12 +18,12 @@ import NotFound from "../pages/NotFound";
 
 export default createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<App/>}>
-      <Route path="*" element={<NotFound/>}/>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/about" element={<About/>}/>
-      <Route path="/marketid/login" element={<LoginPage/>}/>
-      <Route path="/marketid/register" element={<RegisterPage/>}/>
+    <Route element={<App />}>
+      <Route path="*" element={<NotFound />} />
+      <Route path="/marketid/home" element={<Home />} />
+      <Route path="/marketid/about" element={<About />} />
+      <Route path="/marketid/login" element={<LoginPage />} />
+      <Route path="/marketid/register" element={<RegisterPage />} />
     </Route>
   )
-)
+);
