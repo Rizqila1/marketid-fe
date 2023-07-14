@@ -4,7 +4,7 @@ const isLoading = false;
 // REDUCER
 const useReducerLoading = (state = isLoading, actions) => {
   switch (actions.type) {
-    case "LOADING":
+    case "SET_LOADING":
       return {
         isLoading: actions.value,
       };

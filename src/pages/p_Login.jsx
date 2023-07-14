@@ -32,16 +32,19 @@ export default function LoginPage() {
   }
 
   function handleLogin(form) {
+    // LOADING
+    dispatch({ type: "SET_LOADING", value: true });
     axios
       .post("/users/login", form)
       .then((response) => {
         const { _id, token, role } = response.data.data;
+        console.log(_id, token, role);
 
         // SET STORE
         dispatch({ type: "AUTH_TOKEN", value: token });
         dispatch({ type: "AUTH_USER", value: { _id, role } });
 
-        // SET LOCAL STORAGE
+        // // SET LOCAL STORAGE
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify({ _id, role }));
 
@@ -56,13 +59,13 @@ export default function LoginPage() {
         navigate("/marketid/home");
       })
       .catch((error) => {
-        const message = error.response.data.message;
-
+        const message = error.response?.data?.message;
         toast(handleErrorMessage(message), {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.ERROR,
         });
-      });
+      })
+      .finally(() => dispatch({ type: "SET_LOADING", value: false }));
   }
 
   const formik = useFormik({
@@ -89,10 +92,13 @@ export default function LoginPage() {
                 type="email"
                 placeholder="example@market.id"
                 value={formik.values.email}
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                className={formik.errors.email && "border-danger"}
+                className={
+                  formik.errors.email && formik.touched.email && "border-danger"
+                }
               />
-              {formik.errors.email && (
+              {formik.errors.email && formik.touched.email && (
                 <small className="text-danger paragraph__5">
                   {formik.errors.email}
                 </small>
@@ -111,8 +117,13 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={formik.values.password}
+                  onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  className={formik.errors.password && "border-danger"}
+                  className={
+                    formik.errors.password &&
+                    formik.touched.password &&
+                    "border-danger"
+                  }
                 />
                 <Button
                   style={{
@@ -145,7 +156,7 @@ export default function LoginPage() {
                   )}
                 </Button>
               </InputGroup>
-              {formik.errors.password && (
+              {formik.errors.password && formik.touched.password && (
                 <small className="text-danger paragraph__5">
                   {formik.errors.password}
                 </small>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
+import { useDispatch } from "react-redux";
 
 const initialValues = {
   full_name: "",
@@ -33,7 +34,11 @@ export default function RegisterPage() {
     setShowPassword(!showPassword);
   }
 
+  // STORES
+  const dispatch = useDispatch();
+
   function handleRegister(form) {
+    dispatch({ type: "SET_LOADING", value: true });
     axios
       .post("/users/register", form)
       .then((response) => {
@@ -44,7 +49,7 @@ export default function RegisterPage() {
           type: toast.TYPE.SUCCESS,
         });
 
-        navigate("marketid/home");
+        navigate("/marketid/login");
       })
       .catch((error) => {
         const message = error.response.data.message;
@@ -53,6 +58,9 @@ export default function RegisterPage() {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.ERROR,
         });
+      })
+      .finally(() => {
+        dispatch({ type: "SET_LOADING", value: false });
       });
   }
 
@@ -82,9 +90,14 @@ export default function RegisterPage() {
                 maxLength={32}
                 value={formik.values.full_name}
                 onChange={formik.handleChange}
-                className={formik.errors.full_name && "border-danger"}
+                onBlur={formik.handleBlur}
+                className={
+                  formik.errors.full_name &&
+                  formik.touched.full_name &&
+                  "border-danger"
+                }
               />
-              {formik.errors.full_name && (
+              {formik.errors.full_name && formik.touched.full_name && (
                 <small className="text-danger paragraph__5">
                   {formik.errors.full_name}
                 </small>
@@ -103,9 +116,12 @@ export default function RegisterPage() {
                 placeholder="example@market.id"
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                className={formik.errors.email && "border-danger"}
+                onBlur={formik.handleBlur}
+                className={
+                  formik.errors.email && formik.touched.email && "border-danger"
+                }
               />
-              {formik.errors.email && (
+              {formik.touched.email && formik.errors.email && (
                 <small className="text-danger paragraph__5">
                   {formik.errors.email}
                 </small>
@@ -124,8 +140,13 @@ export default function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={formik.values.password}
+                  onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  className={formik.errors.password && "border-danger"}
+                  className={
+                    formik.errors.password &&
+                    formik.touched.password &&
+                    "border-danger"
+                  }
                 />
                 <Button
                   style={{
@@ -158,7 +179,7 @@ export default function RegisterPage() {
                   )}
                 </Button>
               </InputGroup>
-              {formik.errors.password && (
+              {formik.touched.password && formik.errors.password && (
                 <small className="text-danger paragraph__5">
                   {formik.errors.password}
                 </small>
