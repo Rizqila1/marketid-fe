@@ -1,11 +1,18 @@
 import axios from "axios";
+import store from "../stores";
+const { auth } = store.getState();
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
-  function (config) {
+  async function (config) {
+    const token = await auth.token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   },
   function (error) {
@@ -18,6 +25,14 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
+    const statusCode = error.response.status;
+    if (statusCode === 403) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      window.location.href = "/marketid/login";
+    }
+
     return Promise.reject(error);
   }
 );

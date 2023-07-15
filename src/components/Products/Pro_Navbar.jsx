@@ -8,8 +8,40 @@ import {
 } from "react-bootstrap";
 
 import "../../assets/css/custom-product-navbar.css";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosInstance as axios } from "../../config/httpsAxios";
+import { toast } from "react-toastify";
+import handleErrorMessage from "../../utils/handleErrorMessage";
 
 export default function ProductNavbar() {
+  // STORE
+  const { token, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    const id = user._id;
+    dispatch({ type: "SET_LOADING", value: true });
+    axios
+      .post(`/users/logout/${id}`)
+      .then((response) => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        // return to login page
+        window.location.href = "/marketid/login";
+      })
+      .catch((error) => {
+        const message = error.response?.data?.message;
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.ERROR,
+        });
+      })
+      .finally(() => {
+        dispatch({ type: "SET_LOADING", value: false });
+      });
+  }
   return (
     <>
       <Navbar variant="dark" bg="primary" expand="md">
@@ -41,15 +73,35 @@ export default function ProductNavbar() {
             </Nav>
 
             <Nav>
-              <Button
-                variant="outline-light"
-                className="me-md-3 my-md-0 my-3 me-0"
-              >
-                Login
-              </Button>
-              <Button variant="light" className="text-primary">
-                Register
-              </Button>
+              {token ? (
+                <>
+                  <Link
+                    to="/marketid/cart"
+                    className="btn btn-outline-light me-md-3 my-md-0 my-3 me-0 d-flex justify-content-center align-items-center"
+                  >
+                    <i className="bi bi-cart-fill"></i>
+                    <span className="subheading__5 ms-2">0</span>
+                  </Link>
+                  <Button variant="light" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/marketid/login"
+                    className="me-md-3 my-md-0 my-3 me-0 btn btn-outline-light"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/marketid/register"
+                    className="text-primary btn btn-light"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

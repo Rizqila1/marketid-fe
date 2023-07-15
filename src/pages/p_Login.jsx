@@ -1,5 +1,5 @@
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
@@ -22,7 +22,6 @@ const validationSchema = Yup.object({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
   // REDUX STORE
   const dispatch = useDispatch();
@@ -38,7 +37,6 @@ export default function LoginPage() {
       .post("/users/login", form)
       .then((response) => {
         const { _id, token, role } = response.data.data;
-        console.log(_id, token, role);
 
         // SET STORE
         dispatch({ type: "AUTH_TOKEN", value: token });
@@ -48,15 +46,8 @@ export default function LoginPage() {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify({ _id, role }));
 
-        // TOAST POPUP
-        const message = response.data.message;
-        toast(handleErrorMessage(message), {
-          position: toast.POSITION.TOP_RIGHT,
-          type: toast.TYPE.SUCCESS,
-        });
-
         // REDIRECT TO HOME PAGE
-        navigate("/marketid/home");
+        window.location.href = "/marketid/home";
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -134,7 +125,11 @@ export default function LoginPage() {
                     borderBottom: "1px solid #ACB5BD",
                     borderLeft: "none",
                   }}
-                  className={formik.errors.password && "bg-danger"}
+                  className={
+                    formik.errors.password &&
+                    formik.touched.password &&
+                    "bg-danger"
+                  }
                   onClick={handleShowPassword}
                 >
                   {showPassword ? (
@@ -148,7 +143,7 @@ export default function LoginPage() {
                   ) : (
                     <i
                       className={
-                        formik.errors.password
+                        formik.errors.password && formik.touched.password
                           ? "bi bi-eye-fill text-white"
                           : "bi bi-eye-fill text-dark"
                       }

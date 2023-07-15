@@ -157,7 +157,11 @@ export default function RegisterPage() {
                     borderBottom: "1px solid #ACB5BD",
                     borderLeft: "none",
                   }}
-                  className={formik.errors.password && "bg-danger"}
+                  className={
+                    formik.errors.password &&
+                    formik.touched.password &&
+                    "bg-danger"
+                  }
                   onClick={handleShowPassword}
                 >
                   {showPassword ? (
@@ -171,7 +175,7 @@ export default function RegisterPage() {
                   ) : (
                     <i
                       className={
-                        formik.errors.password
+                        formik.errors.password && formik.touched.password
                           ? "bi bi-eye-fill text-white"
                           : "bi bi-eye-fill text-dark"
                       }
