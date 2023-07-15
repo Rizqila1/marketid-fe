@@ -1,0 +1,56 @@
+.w_container_search {
+  width: 55%;
+}
+
+.w_select_search {
+  width: 15%;
+}
+
+.w_input_search {
+  width: 50% !important;
+}
+
+/* LARGE VIEW */
+@media (max-width: 991.98px) {
+  .w_container_search {
+    width: 80%;
+  }
+
+  .w_select_search {
+    width: 40%;
+  }
+
+  .w_input_search {
+    width: 40% !important;
+  }
+}
+
+/* TABLET VIEW (MD) */
+@media (max-width: 767.98px) {
+  .w_container_search {
+    width: 100%;
+  }
+
+  .w_select_search {
+    width: 60%;
+  }
+
+  .w_input_search {
+    width: 40% !important;
+  }
+}
+
+/* SMALL VIEW (SM) */
+@media (max-width: 767.98px) {
+  .w_container_search {
+    width: 100%;
+  }
+
+  .w_select_search {
+    width: 60%;
+  }
+
+  .w_input_search {
+    width: 40% !important;
+  }
+}
