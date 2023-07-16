@@ -19,15 +19,31 @@ import RegisterPage from "../pages/p_Register";
 // NEGATIVE PAGE
 import NotFound from "../pages/NotFound";
 
-import LayoutAuthorization from "../layouts/Authorization";
+import {
+  LayoutAuthorization,
+  LayoutAuthVisitor,
+} from "../layouts/Authorization";
 import store from "../stores";
 const { auth } = store.getState();
 
 export default createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>
+      {/* NEGATIVE PAGE / 404 */}
       <Route path="*" element={<NotFound />} />
 
+      {/* LANDING PAGE FOR VISITOR */}
+      <Route
+        element={
+          <LayoutAuthVisitor auth={auth}>
+            <LayoutProduct />
+          </LayoutAuthVisitor>
+        }
+      >
+        <Route path="/marketid" element={<Products />} />
+      </Route>
+
+      {/* LANDING PAGE FOR USER */}
       <Route
         element={
           <LayoutAuthorization auth={auth}>
@@ -38,13 +54,19 @@ export default createBrowserRouter(
         <Route path="/marketid/home" element={<Products />} />
       </Route>
 
-      <Route element={<LayoutProduct />}>
-        <Route path="/marketid" element={<Products />} />
+      {/* PAGE LOGIN & REGISTER */}
+      <Route
+        element={
+          <LayoutAuthorization auth={auth}>
+            <App />
+          </LayoutAuthorization>
+        }
+      >
+        <Route path="/marketid/login" element={<LoginPage />} />
+        <Route path="/marketid/register" element={<RegisterPage />} />
       </Route>
 
       <Route path="/marketid/about" element={<About />} />
-      <Route path="/marketid/login" element={<LoginPage />} />
-      <Route path="/marketid/register" element={<RegisterPage />} />
     </Route>
   )
 );
