@@ -19,13 +19,27 @@ import RegisterPage from "../pages/p_Register";
 // NEGATIVE PAGE
 import NotFound from "../pages/NotFound";
 
+import LayoutAuthorization from "../layouts/Authorization";
+import store from "../stores";
+const { auth } = store.getState();
+
 export default createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>
       <Route path="*" element={<NotFound />} />
 
+      <Route
+        element={
+          <LayoutAuthorization auth={auth}>
+            <LayoutProduct />
+          </LayoutAuthorization>
+        }
+      >
+        <Route path="/marketid/home" element={<Products />} />
+      </Route>
+
       <Route element={<LayoutProduct />}>
-        <Route path="/" element={<Products />} />
+        <Route path="/marketid" element={<Products />} />
       </Route>
 
       <Route path="/marketid/about" element={<About />} />
