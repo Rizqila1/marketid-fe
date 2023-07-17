@@ -24,7 +24,6 @@ import {
   LayoutAuthVisitor,
 } from "../layouts/Authorization";
 import store from "../stores";
-import AnimatedBG from "../components/AnimatedBG";
 import LayoutLogin from "../layouts/L_Login";
 const { auth } = store.getState();
 
