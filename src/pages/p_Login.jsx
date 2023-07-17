@@ -7,6 +7,7 @@ import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
 import { useDispatch } from "react-redux";
+import AnimatedBG from "../components/AnimatedBG";
 
 const initialValues = {
   email: "",
@@ -176,7 +177,7 @@ export default function LoginPage() {
         </Card>
       </div>
 
-      <div>
+      <div style={{ zIndex: "1" }}>
         <Button variant="primary" className="heading__5 mt-4" href="/marketid">
           <i className="bi bi-arrow-left-square"> </i>
           Landing Page

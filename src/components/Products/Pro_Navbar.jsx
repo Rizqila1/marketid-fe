@@ -46,7 +46,7 @@ export default function ProductNavbar() {
     <>
       <Navbar variant="dark" bg="primary" expand="md">
         <Container>
-          <Navbar.Brand className="heading__4" href="/">
+          <Navbar.Brand className="heading__4" href="/marketid">
             Market.ID
           </Navbar.Brand>
           <Navbar.Toggle />

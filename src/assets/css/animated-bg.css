@@ -1,0 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.animated_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+  background-color: #fafafa;
+  z-index: 0;
+}

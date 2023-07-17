@@ -10,6 +10,10 @@
   width: 50% !important;
 }
 
+.display_button {
+  display: none !important;
+}
+
 /* LARGE VIEW */
 @media (max-width: 991.98px) {
   .w_container_search {
@@ -22,6 +26,11 @@
 
   .w_input_search {
     width: 40% !important;
+  }
+
+  .display_button {
+    display: block !important;
+    width: 100%;
   }
 }
 
@@ -38,10 +47,14 @@
   .w_input_search {
     width: 40% !important;
   }
+
+  .display_button {
+    display: block !important;
+  }
 }
 
 /* SMALL VIEW (SM) */
-@media (max-width: 767.98px) {
+@media (max-width: 575.98px) {
   .w_container_search {
     width: 100%;
   }
@@ -52,5 +65,9 @@
 
   .w_input_search {
     width: 40% !important;
+  }
+
+  .display_button {
+    display: block !important;
   }
 }
