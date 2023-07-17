@@ -66,108 +66,122 @@ export default function LoginPage() {
   });
 
   return (
-    <section className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card style={{ width: "24.5rem", padding: "2rem" }}>
-        <Card.Body>
-          <h4 className="heading__4 mb-4">Login</h4>
+    <section className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <div>
+        <Card style={{ width: "24.5rem", padding: "2rem" }}>
+          <Card.Body>
+            <h4 className="heading__4 mb-4">Login</h4>
 
-          <Form onSubmit={formik.handleSubmit}>
-            <Form.Group className="mb-2">
-              <Form.Label htmlFor="email" className="mb-2">
-                Email address
-              </Form.Label>
-              <Form.Control
-                style={{ border: "1px solid #ACB5BD" }}
-                id="email"
-                name="email"
-                type="email"
-                placeholder="example@market.id"
-                value={formik.values.email}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                className={
-                  formik.errors.email && formik.touched.email && "border-danger"
-                }
-              />
-              {formik.errors.email && formik.touched.email && (
-                <small className="text-danger paragraph__5">
-                  {formik.errors.email}
-                </small>
-              )}
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label htmlFor="password" className="mb-2">
-                Password
-              </Form.Label>
-              <InputGroup>
+            <Form onSubmit={formik.handleSubmit}>
+              <Form.Group className="mb-2">
+                <Form.Label htmlFor="email" className="mb-2">
+                  Email address
+                </Form.Label>
                 <Form.Control
                   style={{ border: "1px solid #ACB5BD" }}
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={formik.values.password}
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="example@market.id"
+                  value={formik.values.email}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   className={
-                    formik.errors.password &&
-                    formik.touched.password &&
+                    formik.errors.email &&
+                    formik.touched.email &&
                     "border-danger"
                   }
                 />
-                <Button
-                  style={{
-                    backgroundColor: "white",
-                    outline: "none",
-                    borderTop: "1px solid #ACB5BD",
-                    borderRight: "1px solid #ACB5BD",
-                    borderBottom: "1px solid #ACB5BD",
-                    borderLeft: "none",
-                  }}
-                  className={
-                    formik.errors.password &&
-                    formik.touched.password &&
-                    "bg-danger"
-                  }
-                  onClick={handleShowPassword}
-                >
-                  {showPassword ? (
-                    <i
-                      className={
-                        formik.errors.password
-                          ? "bi bi-eye-slash-fill text-white"
-                          : "bi bi-eye-slash-fill text-dark"
-                      }
-                    ></i>
-                  ) : (
-                    <i
-                      className={
-                        formik.errors.password && formik.touched.password
-                          ? "bi bi-eye-fill text-white"
-                          : "bi bi-eye-fill text-dark"
-                      }
-                    ></i>
-                  )}
-                </Button>
-              </InputGroup>
-              {formik.errors.password && formik.touched.password && (
-                <small className="text-danger paragraph__5">
-                  {formik.errors.password}
-                </small>
-              )}
-            </Form.Group>
+                {formik.errors.email && formik.touched.email && (
+                  <small className="text-danger paragraph__5">
+                    {formik.errors.email}
+                  </small>
+                )}
+              </Form.Group>
 
-            <Button type="submit" variant="primary" className="w-100 my-4">
-              Login
-            </Button>
-          </Form>
-          <p className="paragraph__5 text-center mb-0">
-            Don't have an account? please{" "}
-            <Link to="/marketid/register">Register</Link>.
-          </p>
-        </Card.Body>
-      </Card>
+              <Form.Group>
+                <Form.Label htmlFor="password" className="mb-2">
+                  Password
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    style={{ border: "1px solid #ACB5BD" }}
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={formik.values.password}
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    className={
+                      formik.errors.password &&
+                      formik.touched.password &&
+                      "border-danger"
+                    }
+                  />
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                      outline: "none",
+                      borderTop: "1px solid #ACB5BD",
+                      borderRight: "1px solid #ACB5BD",
+                      borderBottom: "1px solid #ACB5BD",
+                      borderLeft: "none",
+                    }}
+                    className={
+                      formik.errors.password &&
+                      formik.touched.password &&
+                      "bg-danger"
+                    }
+                    onClick={handleShowPassword}
+                  >
+                    {showPassword ? (
+                      <i
+                        className={
+                          formik.errors.password
+                            ? "bi bi-eye-slash-fill text-white"
+                            : "bi bi-eye-slash-fill text-dark"
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className={
+                          formik.errors.password && formik.touched.password
+                            ? "bi bi-eye-fill text-white"
+                            : "bi bi-eye-fill text-dark"
+                        }
+                      ></i>
+                    )}
+                  </Button>
+                </InputGroup>
+                {formik.errors.password && formik.touched.password && (
+                  <small className="text-danger paragraph__5">
+                    {formik.errors.password}
+                  </small>
+                )}
+              </Form.Group>
+
+              <Button type="submit" variant="primary" className="w-100 my-4">
+                Login
+              </Button>
+            </Form>
+            <p className="paragraph__5 text-center mb-0">
+              Don't have an account? please{" "}
+              <Link className="text-decoration-none" to="/marketid/register">
+                Register
+              </Link>
+              .
+            </p>
+          </Card.Body>
+        </Card>
+      </div>
+
+      <div>
+        <Button variant="primary" className="heading__5 mt-4" href="/marketid">
+          <i className="bi bi-arrow-left-square"> </i>
+          Landing Page
+        </Button>
+      </div>
     </section>
   );
 }

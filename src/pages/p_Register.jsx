@@ -196,7 +196,10 @@ export default function RegisterPage() {
           </Form>
           <p className="paragraph__5 text-center mb-0">
             Already have an account? please{" "}
-            <Link to="/marketid/login">Login</Link>.
+            <Link className="text-decoration-none" to="/marketid/login">
+              Login
+            </Link>
+            .
           </p>
         </Card.Body>
       </Card>
