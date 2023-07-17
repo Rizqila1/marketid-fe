@@ -7,6 +7,7 @@ import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
 import { useDispatch } from "react-redux";
+import CardBG from "../assets/images/13606990_5305323.jpg";
 
 const initialValues = {
   full_name: "",
@@ -71,8 +72,16 @@ export default function RegisterPage() {
   });
 
   return (
-    <section className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card style={{ width: "24.5rem", padding: "2rem" }}>
+    <section className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <Card
+        style={{
+          width: "24.5rem",
+          padding: "2rem",
+          backgroundImage: `url(${CardBG})`,
+          backgroundSize: "100% 100%",
+          border: "1px solid #ACB5BD",
+        }}
+      >
         <Card.Body>
           <h4 className="heading__4 mb-4">Register</h4>
 
@@ -203,6 +212,13 @@ export default function RegisterPage() {
           </p>
         </Card.Body>
       </Card>
+
+      <div style={{ zIndex: "1" }}>
+        <Button variant="primary" className="heading__5 mt-4" href="/marketid">
+          <i className="bi bi-arrow-left-square"> </i>
+          Landing Page
+        </Button>
+      </div>
     </section>
   );
 }

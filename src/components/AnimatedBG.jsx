@@ -18,11 +18,11 @@ export default function AnimatedBG() {
         <linearGradient id="bg">
           <stop
             offset="0%"
-            style={{ stopColor: "rgba(38, 197, 255, 0.49)" }}
+            style={{ stopColor: "rgba(38, 197, 255, 0.59)" }}
           ></stop>
           <stop
             offset="50%"
-            style={{ stopColor: "rgba(3, 163, 255, 0.17)" }}
+            style={{ stopColor: "rgba(3, 163, 255, 0.57)" }}
           ></stop>
           <stop
             offset="100%"
