@@ -7,6 +7,7 @@
 }
 
 .button_hover1:hover {
+  font-weight: 500;
   box-shadow: 0 0 10px 4px rgba(0, 142, 236, 0.4);
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
