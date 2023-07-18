@@ -135,7 +135,7 @@ export default function Products() {
               <Form.Select
                 value={storeParamsProduct.per_page}
                 onChange={handleChange}
-                className="w-auto"
+                style={{ width: "5rem" }}
               >
                 <option value="10">10</option>
                 <option value="15">15</option>
