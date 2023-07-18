@@ -7,7 +7,7 @@ import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
 import { useDispatch } from "react-redux";
-import CardBG from "../assets/images/13606990_5305323.jpg";
+import "../assets/css/components.css";
 
 const initialValues = {
   email: "",
@@ -18,7 +18,10 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .required("Email is required")
     .email("Email must be a valid email"),
-  password: Yup.string().required("Password is required").min(8).max(14),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be atleast 8 characters")
+    .max(14, "Password must be at most 14 characters"),
 });
 
 export default function LoginPage() {
@@ -74,9 +77,8 @@ export default function LoginPage() {
             style={{
               width: "24.5rem",
               padding: "2rem",
-              backgroundImage: `url(${CardBG})`,
-              backgroundSize: "100% 100%",
               border: "1px solid #ACB5BD ",
+              boxShadow: "4px 8px 8px 0px #0391FC40, 0px 4px 4px 0px #00000040",
             }}
           >
             <Card.Body>
@@ -171,7 +173,11 @@ export default function LoginPage() {
                   )}
                 </Form.Group>
 
-                <Button type="submit" variant="primary" className="w-100 my-4">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="button_hover1 w-100 my-4"
+                >
                   Login
                 </Button>
               </Form>
