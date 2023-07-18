@@ -36,9 +36,17 @@
   opacity: 0.5;
 }
 
+.img_product {
+  border-radius: 0 !important;
+}
+
 .clickable_card a {
   background-color: white !important;
   border-color: white !important;
+}
+
+.display_notfound {
+  width: 24%;
 }
 
 /* LARGE VIEW */
@@ -54,6 +62,10 @@
   .img_box:hover .img_product {
     opacity: 1;
   }
+
+  .display_notfound {
+    width: 30% !important;
+  }
 }
 
 /* TABLET VIEW (MD) */
@@ -68,6 +80,10 @@
 
   .img_box:hover .img_product {
     opacity: 1;
+  }
+
+  .display_notfound {
+    width: 40% !important;
   }
 }
 
