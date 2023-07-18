@@ -11,7 +11,7 @@
   height: 100%;
   background-color: #000;
   z-index: -1;
-  border-radius: 0.313rem;
+  border-radius: 0;
 }
 
 .img_box:hover .img_bg {
