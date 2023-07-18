@@ -210,7 +210,10 @@ export default function RegisterPage() {
           </Form>
           <p className="paragraph__5 text-center mb-0">
             Already have an account? please{" "}
-            <Link className="text-decoration-none" to="/marketid/login">
+            <Link
+              className="text-decoration-none fw-semibold"
+              to="/marketid/login"
+            >
               Login
             </Link>
             .

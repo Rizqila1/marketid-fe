@@ -183,7 +183,10 @@ export default function LoginPage() {
               </Form>
               <p className="paragraph__5 text-center mb-0">
                 Don't have an account? please{" "}
-                <Link className="text-decoration-none" to="/marketid/register">
+                <Link
+                  className="text-decoration-none fw-semibold"
+                  to="/marketid/register"
+                >
                   Register
                 </Link>
                 .
