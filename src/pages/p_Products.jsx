@@ -18,18 +18,12 @@ export default function Products() {
 
   // STORE
   const { token, user } = useSelector((state) => state.auth);
-
-  // const [params, setParams] = useState({
-  //   q: "",
-  //   sort_by: "desc",
-  //   page: "1",
-  //   per_page: "15",
-  // });
+  const storeParamsProduct = useSelector((state) => state.product);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get("/products")
+      .get("/products", { params: { ...storeParamsProduct } })
       .then((response) => {
         setLoading(false);
         setData(response.data.data);
@@ -41,10 +35,8 @@ export default function Products() {
           type: toast.TYPE.ERROR,
         });
       })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+      .finally(() => {});
+  }, [storeParamsProduct]);
 
   return (
     <>

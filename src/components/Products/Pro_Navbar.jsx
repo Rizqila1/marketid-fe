@@ -13,11 +13,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance as axios } from "../../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../../utils/handleErrorMessage";
+import { useState } from "react";
 
 export default function ProductNavbar() {
   // STORE
   const { token, user } = useSelector((state) => state.auth);
+  const { q, sort_by } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+
+  // STATE
+  const [params, setParams] = useState({
+    q,
+    sort_by,
+  });
+
+  function handleOnChange(event) {
+    setParams({ ...params, [event.target.name]: event.target.value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // SET VALUE PARAMS Q & SORT_BY TO STORE PRODUCT
+    dispatch({ type: "ACTION_SEARCH", value: params.q });
+    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
+  }
 
   function handleLogout() {
     const id = user._id;
@@ -52,20 +72,33 @@ export default function ProductNavbar() {
           <Navbar.Toggle />
           <Navbar.Collapse>
             <Nav className="w-100 d-flex justify-content-center align-items-center">
-              <Form className="w_container_search my-md-0 mt-3">
+              <Form
+                className="w_container_search my-md-0 mt-3"
+                onSubmit={handleSubmit}
+              >
                 <InputGroup>
-                  <Form.Select className="w_select_search">
-                    <option>Sort By</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <Form.Select
+                    className="w_select_search"
+                    name="sort_by"
+                    value={params.sort_by}
+                    onChange={handleOnChange}
+                  >
+                    <option value="desc">Latest</option>
+                    <option value="asc">Oldest</option>
                   </Form.Select>
                   <Form.Control
                     type="text"
                     placeholder="Find your favorite stuff..."
                     className="w_input_search"
+                    name="q"
+                    value={params.q}
+                    onChange={handleOnChange}
                   />
-                  <Button variant="light" className="d-flex align-items-center">
+                  <Button
+                    type="submit"
+                    variant="light"
+                    className="d-flex align-items-center"
+                  >
                     <i className="bi- bi-search"></i>
                   </Button>
                 </InputGroup>
