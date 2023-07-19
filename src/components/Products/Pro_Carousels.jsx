@@ -11,7 +11,7 @@ export default function ProductCarousels() {
         style={{
           width: "100%",
           boxShadow:
-            "0rem 0.25rem 0.25rem 0rem #00000040, 0.25rem 0.5rem 0.5rem 0rem #FEC10740",
+            "0rem 0.25rem 0.25rem 0rem #00000040, 0rem 0.7rem 0.5rem 0rem #FEC10760",
         }}
       >
         <Carousel.Item>
