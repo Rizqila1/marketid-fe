@@ -66,7 +66,12 @@ export default function ProductNavbar() {
   }
   return (
     <>
-      <Navbar variant="dark" bg="primary" expand="md">
+      <Navbar
+        variant="dark"
+        bg="primary"
+        expand="md"
+        className="position-fixed w-100 z-3"
+      >
         <Container>
           <Navbar.Brand className="heading__4" href="/marketid">
             Market.ID
