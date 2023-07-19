@@ -1,7 +1,7 @@
-import { Col, Row, Card, Button, Container, Form } from "react-bootstrap";
+import { Col, Row, Card, Button, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { axiosInstance as axios } from "../config/httpsAxios";
 import handleErrorMessage from "../utils/handleErrorMessage";
@@ -11,8 +11,7 @@ import convertFormatCurrency from "../utils/convertFormatCurrency";
 
 import "../assets/css/product-page.css";
 import "../assets/css/custom-product-navbar.css";
-import { PaginationControl } from "react-bootstrap-pagination-control";
-import ProductNotFound from "../components/Products/Pro_NotFound";
+import ComponentPagination from "../components/Pagination";
 
 export default function Products() {
   const [data, setData] = useState([]);
@@ -22,23 +21,17 @@ export default function Products() {
   // STORE
   const { token, user } = useSelector((state) => state.auth);
   const storeParamsProduct = useSelector((state) => state.product);
-  const dispatch = useDispatch();
-
-  function handleChange(event) {
-    dispatch({ type: "ACTION_PER_PAGE", value: event.target.value });
-  }
-
-  function handlePagination(page) {
-    dispatch({ type: "ACTION_PAGE", value: page });
-    setPagination({ ...pagination, page: page });
-  }
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
     setLoading(true);
     axios
       .get("/products", { params: { ...storeParamsProduct } })
       .then((response) => {
-        setLoading(false);
         setData(response.data.data);
         setPagination(response.data.pagination);
       })
@@ -49,12 +42,14 @@ export default function Products() {
           type: toast.TYPE.ERROR,
         });
       })
-      .finally(() => {});
+      .finally(() => {
+        setLoading(false);
+      });
   }, [storeParamsProduct]);
 
   return (
     <>
-      <Row>
+      <Row className="mt-5">
         {data.map((product, index) => (
           <Col
             key={`product-${index}`}
@@ -127,37 +122,12 @@ export default function Products() {
         ))}
       </Row>
 
-      {data.length ? (
-        <Row>
-          <div className="d-flex justify-content-end align-items-center">
-            <p className="paragraph__3 mb-3">Per Page</p>
-            <div className="mb-3 mx-3">
-              <Form.Select
-                value={storeParamsProduct.per_page}
-                onChange={handleChange}
-                style={{ width: "5rem" }}
-              >
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-              </Form.Select>
-            </div>
-            <div>
-              <PaginationControl
-                page={pagination.page}
-                total={pagination.total}
-                limit={pagination.per_page}
-                ellipsis={2}
-                between={4}
-                changePage={handlePagination}
-              ></PaginationControl>
-            </div>
-          </div>
-        </Row>
-      ) : (
-        <ProductNotFound />
-      )}
+      <ComponentPagination
+        data={data}
+        pagination={pagination}
+        setPagination={setPagination}
+        message={"Product Not Found :("}
+      />
     </>
   );
 }
