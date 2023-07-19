@@ -49,6 +49,19 @@
   width: 24%;
 }
 
+.carousel-inner {
+  border-radius: 0.5rem;
+}
+
+.carousel {
+  border-radius: 0.5rem !important;
+}
+
+.carousel-caption {
+  width: 50%;
+  left: 25% !important;
+}
+
 /* LARGE VIEW */
 @media (max-width: 991.98px) {
   .img_box:hover .img_bg {
@@ -65,6 +78,11 @@
 
   .display_notfound {
     width: 30% !important;
+  }
+
+  .carousel-caption {
+    width: 90% !important;
+    left: 5% !important;
   }
 }
 
@@ -85,6 +103,11 @@
   .display_notfound {
     width: 40% !important;
   }
+
+  .carousel-caption {
+    width: 95% !important;
+    left: 2.5% !important;
+  }
 }
 
 /* SMALL VIEW (SM) */
@@ -104,5 +127,10 @@
   .display_card {
     width: 50% !important;
     height: auto !important;
+  }
+
+  .carousel-caption {
+    width: 98% !important;
+    left: 1% !important;
   }
 }

@@ -12,6 +12,7 @@ import convertFormatCurrency from "../utils/convertFormatCurrency";
 import "../assets/css/product-page.css";
 import "../assets/css/custom-product-navbar.css";
 import ComponentPagination from "../components/Pagination";
+import ProductCarousels from "../components/Products/Pro_Carousels";
 
 export default function Products() {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ export default function Products() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: "smooth",
     });
     setLoading(true);
     axios
@@ -49,7 +50,8 @@ export default function Products() {
 
   return (
     <>
-      <Row className="mt-5">
+      <ProductCarousels />
+      <Row className="mt-4">
         {data.map((product, index) => (
           <Col
             key={`product-${index}`}
