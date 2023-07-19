@@ -1,7 +1,7 @@
 import { Carousel } from "react-bootstrap";
-import CarouselIMG1 from "../../assets/images/Carousel1.jpg";
-import CarouselIMG2 from "../../assets/images/Carousel2.jpg";
-import CarouselIMG3 from "../../assets/images/Carousel3.jpg";
+import CarouselIMG1 from "../../assets/images/Carousel1Ps.jpg";
+import CarouselIMG2 from "../../assets/images/Carousel2Ps.jpg";
+import CarouselIMG3 from "../../assets/images/Carousel3Ps.jpg";
 
 export default function ProductCarousels() {
   return (
