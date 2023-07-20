@@ -8,7 +8,7 @@
 
 .button_hover1:hover {
   font-weight: 500;
-  box-shadow: 0 0 10px 4px rgba(0, 142, 236, 0.4);
+  box-shadow: 0 0 0.6rem 0.3rem rgba(0, 142, 236, 0.4);
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -24,14 +24,14 @@
 .button_hover1::before {
   content: "";
   display: block;
-  width: 0px;
+  width: 0rem;
   height: 86%;
   position: absolute;
   top: 7%;
   left: 0%;
   opacity: 0;
   background: #fff;
-  box-shadow: 0 0 50px 30px #fff;
+  box-shadow: 0 0 3rem 1.875rem #fff;
   -webkit-transform: skewX(-20deg);
   -moz-transform: skewX(-20deg);
   -ms-transform: skewX(-20deg);

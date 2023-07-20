@@ -77,8 +77,9 @@ export default function LoginPage() {
             style={{
               width: "24.5rem",
               padding: "2rem",
-              border: "1px solid #ACB5BD ",
-              boxShadow: "4px 8px 8px 0px #0391FC40, 0px 4px 4px 0px #00000040",
+              border: "0.06rem solid #ACB5BD ",
+              boxShadow:
+                "0.3rem 0.5rem 0.5rem 0rem #0391FC40, 0rem 0.3rem 0.3rem 0rem #00000040",
             }}
           >
             <Card.Body>
@@ -90,7 +91,7 @@ export default function LoginPage() {
                     Email address
                   </Form.Label>
                   <Form.Control
-                    style={{ border: "1px solid #ACB5BD" }}
+                    style={{ border: "0.06rem solid #ACB5BD" }}
                     id="email"
                     name="email"
                     type="email"
@@ -117,7 +118,7 @@ export default function LoginPage() {
                   </Form.Label>
                   <InputGroup>
                     <Form.Control
-                      style={{ border: "1px solid #ACB5BD" }}
+                      style={{ border: "0.06rem solid #ACB5BD" }}
                       id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
@@ -135,9 +136,9 @@ export default function LoginPage() {
                       style={{
                         backgroundColor: "white",
                         outline: "none",
-                        borderTop: "1px solid #ACB5BD",
-                        borderRight: "1px solid #ACB5BD",
-                        borderBottom: "1px solid #ACB5BD",
+                        borderTop: "0.06rem solid #ACB5BD",
+                        borderRight: "0.06rem solid #ACB5BD",
+                        borderBottom: "0.06rem solid #ACB5BD",
                         borderLeft: "none",
                       }}
                       className={

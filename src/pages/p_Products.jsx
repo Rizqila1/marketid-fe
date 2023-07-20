@@ -67,8 +67,8 @@ export default function Products() {
               <div className="display_card">
                 <Card
                   style={{
-                    border: "1px solid #ACB5BD ",
-                    boxShadow: "0px 2px 4px 0px #00000040",
+                    border: "0.06rem solid #ACB5BD ",
+                    boxShadow: "0rem 0.13rem 0.3rem 0rem #00000040",
                   }}
                 >
                   <Container className="p-2 pb-0">

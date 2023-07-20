@@ -41,7 +41,7 @@ export default function ProductCarousels() {
               className="paragraph__2"
               style={{
                 textShadow:
-                  "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
+                  "-0.06rem -0.06rem 0.06rem #000, 0.06rem -0.06rem 0.06rem #000, -0.06rem 0.06rem 0.06rem #000, 0.06rem 0.06rem 0.06rem #000",
               }}
             >
               {Content.carousel1_description}
@@ -75,7 +75,7 @@ export default function ProductCarousels() {
               className="paragraph__2"
               style={{
                 textShadow:
-                  "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
+                  "-0.06rem -0.06rem 0.06rem #000, 0.06rem -0.06rem 0.06rem #000, -0.06rem 0.06rem 0.06rem #000, 0.06rem 0.06rem 0.06rem #000",
               }}
             >
               {Content.carousel2_description}
@@ -95,7 +95,7 @@ export default function ProductCarousels() {
               className="heading__1"
               style={{
                 textShadow:
-                  "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
+                  "-0.06rem -0.06rem 0.06rem #000, 0.06rem -0.06rem 0.06rem #000, -0.06rem 0.06rem 0.06rem #000, 0.06rem 0.06rem 0.06rem #000",
               }}
             >
               <i className="fas fa-crown me-2" style={{ color: "#ffe53d" }}></i>
