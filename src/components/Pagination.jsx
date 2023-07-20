@@ -9,6 +9,9 @@ export default function ComponentPagination(props) {
 
   function handleChange(event) {
     dispatch({ type: "ACTION_PER_PAGE", value: event.target.value });
+
+    // SET DEFAULT PAGE SO THAT WHEN DOING FILTER ITS AUTOMATICALLY BACK/SET TO PAGE 1
+    dispatch({ type: "ACTION_PAGE", value: 1 });
   }
 
   function handlePagination(page) {
@@ -33,13 +36,14 @@ export default function ComponentPagination(props) {
                 <option value="25">25</option>
               </Form.Select>
             </div>
+
             <div>
               <PaginationControl
                 page={props.pagination.page}
                 total={props.pagination.total}
                 limit={props.pagination.per_page}
                 last={true}
-                ellipsis={2}
+                ellipsis={1}
                 between={4}
                 changePage={handlePagination}
               ></PaginationControl>
