@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Loading from "./components/c_Loading";
+import Loading from "./components/Loading";
 import { useSelector } from "react-redux";
 
 import "./assets/css/app.css";

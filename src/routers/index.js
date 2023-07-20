@@ -8,16 +8,16 @@ import {
 import App from "../App";
 
 // LAYOUT PRODUCT
-import LayoutProduct from "../layouts/L_products";
+import LayoutProduct from "../layouts/L_Products";
 
 // CUSTOMER PAGES
 import Products from "../pages/p_Products";
-import About from "../pages/About";
+import About from "../pages/p_About";
 import LoginPage from "../pages/p_Login";
 import RegisterPage from "../pages/p_Register";
 
 // NEGATIVE PAGE
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/p_NotFound";
 
 import {
   LayoutAuthorization,
