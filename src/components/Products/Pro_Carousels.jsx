@@ -2,6 +2,7 @@ import { Carousel } from "react-bootstrap";
 import CarouselIMG1 from "../../assets/images/Carousel1Ps.jpg";
 import CarouselIMG2 from "../../assets/images/Carousel2Ps.jpg";
 import CarouselIMG3 from "../../assets/images/Carousel3Ps.jpg";
+import Content from "../../content/eng/pages_product-carousel.json";
 
 export default function ProductCarousels() {
   return (
@@ -33,7 +34,7 @@ export default function ProductCarousels() {
                   borderRadius: "0.5rem",
                 }}
               >
-                Various Stunning Decorations
+                {Content.carousel1_title}
               </h1>
             </div>
             <p
@@ -43,8 +44,7 @@ export default function ProductCarousels() {
                   "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
               }}
             >
-              There are many stuff that you can find to make your house look
-              better
+              {Content.carousel1_description}
             </p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -67,7 +67,7 @@ export default function ProductCarousels() {
                   borderRadius: "0.5rem",
                 }}
               >
-                Set Yourself To Looks Fly
+                {Content.carousel2_title}
               </h1>
             </div>
 
@@ -78,8 +78,7 @@ export default function ProductCarousels() {
                   "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
               }}
             >
-              Clothes are one of the most uploaded product on Market.ID, Make
-              sure you got atleast one of them
+              {Content.carousel2_description}
             </p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -100,7 +99,7 @@ export default function ProductCarousels() {
               }}
             >
               <i className="fas fa-crown me-2" style={{ color: "#ffe53d" }}></i>
-              The Most Expensive Product
+              {Content.carousel3_title}
             </h1>
             <p
               className="paragraph__2"
@@ -109,8 +108,7 @@ export default function ProductCarousels() {
                   "-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000",
               }}
             >
-              The Bugatti Chiron 2020 is the most expensive product you can find
-              on Market.ID
+              {Content.carousel3_description}
             </p>
           </Carousel.Caption>
         </Carousel.Item>
