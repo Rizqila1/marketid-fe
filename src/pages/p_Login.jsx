@@ -7,7 +7,7 @@ import { axiosInstance as axios } from "../config/httpsAxios";
 import { toast } from "react-toastify";
 import handleErrorMessage from "../utils/handleErrorMessage";
 import { useDispatch } from "react-redux";
-import "../assets/css/components.css";
+import "../assets/css/buttons.css";
 
 const initialValues = {
   email: "",
