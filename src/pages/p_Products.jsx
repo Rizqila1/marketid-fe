@@ -11,12 +11,17 @@ import convertFormatCurrency from "../utils/convertFormatCurrency";
 
 import "../assets/css/product-page.css";
 import "../assets/css/custom-product-navbar.css";
+
+// Component
 import ComponentPagination from "../components/Pagination";
 import ProductCarousels from "../components/Products/Pro_Carousels";
+import ProductAboutUs from "../components/Products/Pro_AboutUs";
+import ProductProfile from "../components/Products/Pro_Profile";
+import ProductWelcoming from "../components/Products/Pro_Welcoming";
 
 export default function Products() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({});
 
   // STORE
@@ -29,6 +34,7 @@ export default function Products() {
       left: 0,
       behavior: "smooth",
     });
+
     setLoading(true);
     axios
       .get("/products", { params: { ...storeParamsProduct } })
@@ -51,6 +57,12 @@ export default function Products() {
   return (
     <>
       <ProductCarousels />
+      <section className="d-flex justify-content-between align-items-center bg-primary pb-3 mt-4">
+        {token && user && <ProductProfile />}
+        <ProductWelcoming />
+        <ProductAboutUs />
+      </section>
+
       <Row className="mt-4">
         {data.map((product, index) => (
           <Col
@@ -129,6 +141,7 @@ export default function Products() {
         pagination={pagination}
         setPagination={setPagination}
         message={"Product Not Found :("}
+        loading={loading}
       />
     </>
   );

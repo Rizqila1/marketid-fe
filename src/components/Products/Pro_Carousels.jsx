@@ -2,12 +2,14 @@ import { Carousel } from "react-bootstrap";
 import CarouselIMG1 from "../../assets/images/Carousel1Ps.jpg";
 import CarouselIMG2 from "../../assets/images/Carousel2Ps.jpg";
 import CarouselIMG3 from "../../assets/images/Carousel3Ps.jpg";
-import Content from "../../content/eng/pages_product-carousel.json";
+import Content from "../../content/eng/pages_product.json";
 
 export default function ProductCarousels() {
   return (
     <>
       <Carousel
+        autoPlay={true}
+        interval={5000}
         className="mt-4"
         style={{
           width: "100%",
