@@ -45,6 +45,10 @@
   border-color: white !important;
 }
 
+.display_button {
+  display: none !important;
+}
+
 .display_notfound {
   width: 24%;
 }
@@ -143,6 +147,11 @@
     opacity: 1;
   }
 
+  .display_button {
+    display: block !important;
+    width: 100%;
+  }
+
   .display_notfound {
     width: 30% !important;
   }
@@ -187,6 +196,10 @@
 
   .img_box:hover .img_product {
     opacity: 1;
+  }
+
+  .display_button {
+    display: block !important;
   }
 
   .display_notfound {
@@ -244,6 +257,10 @@
 
   .img_box:hover .img_product {
     opacity: 1;
+  }
+
+  .display_button {
+    display: block !important;
   }
 
   .display_card {

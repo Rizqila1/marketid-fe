@@ -1,4 +1,12 @@
 .app-main {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   min-height: 100vh;
+}
+
+.border_color {
+  border: 0.06rem solid #acb5bd !important;
+}
+
+.border_color_brighter {
+  border: 0.06rem solid #e0e0e0 !important;
 }
