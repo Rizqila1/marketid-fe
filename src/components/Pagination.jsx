@@ -23,7 +23,7 @@ export default function ComponentPagination(props) {
 
   const customizeLoader = () => {
     if (props.loading === true) return <Loading2 />;
-    if (!props.data.length) return <ProductNotFound message={props.message} />;
+    if (!props.data?.length) return <ProductNotFound message={props.message} />;
   };
 
   return (
@@ -48,9 +48,9 @@ export default function ComponentPagination(props) {
 
           <div>
             <PaginationControl
-              page={props.pagination.page}
-              total={props.pagination.total}
-              limit={props.pagination.per_page}
+              page={props.pagination?.page}
+              total={props.pagination?.total}
+              limit={props.pagination?.per_page}
               last={true}
               ellipsis={1}
               between={4}
