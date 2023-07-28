@@ -1,7 +1,7 @@
 import { Col, Row, Card, Button, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { axiosInstance as axios } from "../config/httpsAxios";
 import handleErrorMessage from "../utils/handleErrorMessage";
@@ -27,13 +27,11 @@ export default function Products() {
   // STORE
   const { token, user } = useSelector((state) => state.auth);
   const storeParamsProduct = useSelector((state) => state.product);
+  const storeCarts = useSelector((state) => state.carts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
     setLoading(true);
     axios
@@ -53,6 +51,36 @@ export default function Products() {
         setLoading(false);
       });
   }, [storeParamsProduct]);
+
+  function handleCart(product) {
+    let data = storeCarts.carts;
+    const findProductById = data.find((item) => item._id === product._id);
+
+    if (!findProductById) {
+      data.push({
+        ...product,
+        count: 1,
+        totalPrice: 0,
+      });
+
+      data.forEach((item, i, items) => {
+        if (item.count === 1) {
+          items[i].totalPrice = item.price;
+        }
+      });
+      dispatch({ type: "SET_CARTS", value: data });
+    } else {
+      data.forEach((item, i, items) => {
+        if (item._id === product._id) {
+          item.count += 1;
+        }
+        if (item.count > 1) {
+          items[i].totalPrice = item.price * item.count;
+        }
+      });
+      dispatch({ type: "SET_CARTS", value: data });
+    }
+  }
 
   return (
     <>
@@ -90,11 +118,15 @@ export default function Products() {
                         <Card.Img
                           className="img_product pb-0"
                           variant="top"
-                          src={product.image.url || defaultImage}
+                          src={product.image?.url || defaultImage}
                           alt={`product-${product.name}`}
                           height="161"
                         />
-                        <Button className="w-100" variant="primary">
+                        <Button
+                          className="w-100"
+                          variant="primary"
+                          onClick={() => handleCart(product)}
+                        >
                           Add To Cart
                         </Button>
                       </div>
@@ -104,7 +136,7 @@ export default function Products() {
                           <Card.Img
                             className="img_product pb-0"
                             variant="top"
-                            src={product.image.url || defaultImage}
+                            src={product.image?.url || defaultImage}
                             alt={`product-${product.name}`}
                             height="161"
                           />

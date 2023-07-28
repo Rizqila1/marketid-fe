@@ -19,7 +19,11 @@ export default function ProductNavbar() {
   // STORE
   const { token, user } = useSelector((state) => state.auth);
   const { q, sort_by } = useSelector((state) => state.product);
+  const storeCarts = useSelector((state) => state.carts);
   const dispatch = useDispatch();
+
+  const count = storeCarts.carts.map((item) => item.count);
+  const sumCount = count.reduce((a, b) => a + b, 0);
 
   // STATE
   const [params, setParams] = useState({
@@ -120,7 +124,7 @@ export default function ProductNavbar() {
                     className="btn btn-outline-light me-md-3 my-md-0 my-3 me-0 d-flex justify-content-center align-items-center"
                   >
                     <i className="bi bi-cart-fill"></i>
-                    <span className="subheading__5 ms-2">0</span>
+                    <span className="subheading__5 ms-2">{sumCount}</span>
                   </Link>
                   <Button variant="light" onClick={handleLogout}>
                     Logout
