@@ -7,14 +7,23 @@ import {
 // IMPORT COMPONENT, LAYOUT, PAGE & AUTH
 import App from "../App";
 
-// LAYOUT PRODUCT
+// LAYOUTS
 import LayoutProduct from "../layouts/L_Products";
+import LayoutLogin from "../layouts/L_Login";
+import LayoutProfile from "../layouts/L_Profile";
+import LayoutPayment from "../layouts/L_Payment";
 
 // CUSTOMER PAGES
 import Products from "../pages/p_Products";
 import About from "../pages/p_About";
 import LoginPage from "../pages/p_Login";
 import RegisterPage from "../pages/p_Register";
+import ProfilePage from "../pages/customer/p_Profile";
+import AddressPage from "../pages/customer/p_Address";
+import HistoryPage from "../pages/customer/p_History";
+import CreateAddressPage from "../pages/customer/p_CreateAddress";
+import EditAddressPage from "../pages/customer/p_EditAddress";
+import CartPage from "../pages/customer/p_Cart";
 
 // NEGATIVE PAGE
 import NotFound from "../pages/p_NotFound";
@@ -24,7 +33,6 @@ import {
   LayoutAuthVisitor,
 } from "../layouts/Authorization";
 import store from "../stores";
-import LayoutLogin from "../layouts/L_Login";
 const { auth } = store.getState();
 
 export default createBrowserRouter(
@@ -42,6 +50,7 @@ export default createBrowserRouter(
         }
       >
         <Route path="/marketid" element={<Products />} />
+        <Route path="/marketid/about" element={<About />} />
       </Route>
 
       {/* LANDING PAGE FOR USER */}
@@ -69,7 +78,33 @@ export default createBrowserRouter(
         <Route path="/marketid/register" element={<RegisterPage />} />
       </Route>
 
-      <Route path="/marketid/about" element={<About />} />
+      {/* PAGE PROFILE, ADDRESS, HISTORY, LOGOUT*/}
+      <Route
+        element={
+          <LayoutAuthorization auth={auth}>
+            <LayoutProfile />
+          </LayoutAuthorization>
+        }
+      >
+        <Route path="/marketid/profile" element={<ProfilePage />} />
+        <Route path="/marketid/address" element={<AddressPage />} />
+        <Route
+          path="/marketid/address/create"
+          element={<CreateAddressPage />}
+        />
+        <Route path="/marketid/address/edit" element={<EditAddressPage />} />
+        <Route path="/marketid/history" element={<HistoryPage />} />
+      </Route>
+
+      <Route
+        element={
+          <LayoutAuthorization auth={auth}>
+            <LayoutPayment />
+          </LayoutAuthorization>
+        }
+      >
+        <Route path="/marketid/cart" element={<CartPage />} />
+      </Route>
     </Route>
   )
 );
