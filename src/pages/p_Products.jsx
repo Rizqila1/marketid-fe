@@ -59,23 +59,16 @@ export default function Products() {
     if (!findProductById) {
       data.push({
         ...product,
-        count: 1,
-        totalPrice: 0,
+        qty: 1,
+        sub_total: product.price * 1,
       });
 
-      data.forEach((item, i, items) => {
-        if (item.count === 1) {
-          items[i].totalPrice = item.price;
-        }
-      });
       dispatch({ type: "SET_CARTS", value: data });
     } else {
-      data.forEach((item, i, items) => {
+      data.forEach((item) => {
         if (item._id === product._id) {
-          item.count += 1;
-        }
-        if (item.count > 1) {
-          items[i].totalPrice = item.price * item.count;
+          item.qty += 1;
+          item.sub_total = item.qty * item.price;
         }
       });
       dispatch({ type: "SET_CARTS", value: data });
@@ -101,6 +94,7 @@ export default function Products() {
             sm="6"
             xs="12"
           >
+            {/* SHOW SKELETON CARD WHILE LOADING */}
             {loading ? (
               <SkeletonCard />
             ) : (
@@ -112,6 +106,7 @@ export default function Products() {
                   }}
                 >
                   <Container className="p-2 pb-0">
+                    {/* SHOW BUTTON ADD TO CART IF USER HAVE TOKEN */}
                     {token ? (
                       <div className="img_box">
                         <div className="img_bg" />
@@ -156,7 +151,11 @@ export default function Products() {
                     </Card.Title>
 
                     {token && user && (
-                      <Button className="display_button mb-2" variant="primary">
+                      <Button
+                        className="display_button mb-2"
+                        variant="primary"
+                        onClick={() => handleCart(product)}
+                      >
                         Add To Cart
                       </Button>
                     )}

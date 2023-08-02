@@ -22,7 +22,7 @@ export default function ProductNavbar() {
   const storeCarts = useSelector((state) => state.carts);
   const dispatch = useDispatch();
 
-  const count = storeCarts.carts.map((item) => item.count);
+  const count = storeCarts.carts.map((item) => item.qty);
   const sumCount = count.reduce((a, b) => a + b, 0);
 
   // STATE
