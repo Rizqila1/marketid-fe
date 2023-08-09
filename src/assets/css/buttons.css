@@ -104,3 +104,23 @@
 .button_hover2:hover .about_icon {
   color: white !important;
 }
+
+.button_hover3 {
+  transition: 0.1s;
+}
+
+.button_hover3:hover {
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+  font-weight: 500;
+}
+
+.button_hover4 {
+  transition: 0.1s;
+}
+
+.button_hover4:hover {
+  box-shadow: 0 0 0 5px #1987535f;
+  color: #fff;
+  font-weight: 500;
+}
