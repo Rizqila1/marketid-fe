@@ -24,6 +24,7 @@ import HistoryPage from "../pages/customer/p_History";
 import CreateAddressPage from "../pages/customer/p_CreateAddress";
 import EditAddressPage from "../pages/customer/p_EditAddress";
 import CartPage from "../pages/customer/p_Cart";
+import PaymentPage from "../pages/customer/p_Payment";
 
 // NEGATIVE PAGE
 import NotFound from "../pages/p_NotFound";
@@ -96,6 +97,7 @@ export default createBrowserRouter(
         <Route path="/marketid/history" element={<HistoryPage />} />
       </Route>
 
+      {/* CART & INVOICE */}
       <Route
         element={
           <LayoutAuthorization auth={auth}>
@@ -104,6 +106,7 @@ export default createBrowserRouter(
         }
       >
         <Route path="/marketid/cart" element={<CartPage />} />
+        <Route path="/marketid/payment/:invoice" element={<PaymentPage />} />
       </Route>
     </Route>
   )
