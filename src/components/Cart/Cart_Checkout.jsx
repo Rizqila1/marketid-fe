@@ -14,7 +14,7 @@ export default function CartCheckout(props) {
     detailPrice = { sub_total: 0, PPN: 0, total: 0 },
     idAddress,
     carts,
-    handleConfirmDone = () => {},
+    handleConfirmDone,
     isStatus = true,
   } = props;
 
@@ -146,7 +146,7 @@ export default function CartCheckout(props) {
               className="button_hover4 w-100 d-flex justify-content-center mt-2 mb-3"
               variant="success"
               disabled={carts.length === 0}
-              onClick={handleConfirmDone}
+              onClick={handleConfirmDone} // DevNote: if onclick function send from props, it doesn't require () =>
             >
               Confirm Done
             </Button>
