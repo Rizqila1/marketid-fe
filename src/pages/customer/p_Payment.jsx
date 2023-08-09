@@ -84,9 +84,12 @@ export default function PaymentPage() {
         toast(handleErrorMessage("Payment Success"), {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.SUCCESS,
+          autoClose: 1000,
         });
 
-        window.location.reload();
+        setInterval(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
