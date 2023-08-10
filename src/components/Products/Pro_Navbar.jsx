@@ -126,7 +126,11 @@ export default function ProductNavbar() {
                     <i className="bi bi-cart-fill"></i>
                     <span className="subheading__5 ms-2">{sumCount}</span>
                   </Link>
-                  <Button variant="light" onClick={handleLogout}>
+                  <Button
+                    className="subheading__4 text-danger"
+                    variant="light"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </Button>
                 </>

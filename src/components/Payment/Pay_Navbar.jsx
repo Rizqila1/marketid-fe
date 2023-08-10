@@ -19,7 +19,7 @@ export default function PaymentNavbarComponent() {
             <Nav className="w-100 d-flex justify-content-end align-items-center">
               <Link
                 to="/marketid/profile"
-                className="me-md-3 my-md-0 my-3 me-0 btn btn-light text-primary"
+                className="subheading__4 me-md-3 my-md-0 my-3 me-0 btn btn-light text-primary"
               >
                 Profile
               </Link>
