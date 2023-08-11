@@ -70,6 +70,7 @@ export default function PaymentPage() {
         })
         .finally(() => {
           dispatch({ type: "SET_LOADING", value: false });
+          setIsUpdate(false);
         });
     }
   }, [isUpdate, invoice, dispatch]);
@@ -84,12 +85,7 @@ export default function PaymentPage() {
         toast(handleErrorMessage("Payment Success"), {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.SUCCESS,
-          autoClose: 1000,
         });
-
-        setInterval(() => {
-          window.location.reload();
-        }, 1000);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -109,7 +105,13 @@ export default function PaymentPage() {
 
       <Row>
         <Col lg="12" className="mt-3">
-          <Card className="rounded-0">
+          <Card
+            className="rounded-0 mb-2"
+            style={{
+              boxShadow:
+                "0.3rem 0.5rem 0.5rem 0rem #0391FC40, 0rem 0.3rem 0.3rem 0rem #00000040",
+            }}
+          >
             <Card.Body>
               <h2 className="text-primary heading__3 mb-3">Market.ID</h2>
               <div className="d-flex justify-content-between">
