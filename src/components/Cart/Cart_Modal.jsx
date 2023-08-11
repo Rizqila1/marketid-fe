@@ -40,9 +40,8 @@ export default function CartModalComponent(props) {
       .post("/checkout/create", dataCheckout)
       .then((response) => {
         const invoice = response.data.data.invoice;
-        const message = response.data.message;
 
-        toast(handleErrorMessage(message), {
+        toast(handleErrorMessage("Checkout Created"), {
           position: toast.POSITION.TOP_RIGHT,
           type: toast.TYPE.SUCCESS,
         });
