@@ -111,8 +111,7 @@ export default function CartCheckout(props) {
     <Card
       className="border_color_brighter bg-white mt-3"
       style={{
-        boxShadow:
-          "0.3rem 0.5rem 0.5rem 0rem #0391FC40, 0rem 0.3rem 0.3rem 0rem #00000040",
+        boxShadow: "0rem 0.3rem 0.3rem 0rem #00000040",
       }}
     >
       {isCheckout ? (
