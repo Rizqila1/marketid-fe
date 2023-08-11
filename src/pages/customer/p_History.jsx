@@ -1,24 +1,57 @@
 import { useEffect, useState } from "react";
-import {
-  Breadcrumb,
-  Row,
-  Col,
-  ListGroup,
-  Button,
-  Form,
-  InputGroup,
-  Image,
-} from "react-bootstrap";
+import { Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { axiosInstance as axios } from "../../config/httpsAxios";
 import handleErrorMessage from "../../utils/handleErrorMessage";
-import defaultImage from "../../assets/images/default-image.png";
 import "../../assets/css/history-page.css";
 import ComponentPagination from "../../components/Pagination";
+import ABreadcrumb from "../../components/ABreadCrumb";
+import AListGroup from "../../components/AListGroup";
+import HistoryProduct from "../../components/History/His_Product";
 
 export default function HistoryPage() {
-  const { user } = useSelector((state) => state.auth);
+  // Breadcrumb's
+  const options = [
+    {
+      href: "/marketid",
+      name: "Home",
+      active: false,
+    },
+    {
+      href: "/marketid/history",
+      name: "History",
+      active: true,
+    },
+  ];
+
+  // Selector ListGroup Component
+  const selector = [
+    {
+      name: "Profile",
+      href: "/marketid/profile",
+      active: false,
+      action: true,
+    },
+    {
+      name: "Address",
+      href: "/marketid/address",
+      active: false,
+      action: true,
+    },
+    {
+      name: "History",
+      active: true,
+      action: false,
+    },
+    {
+      name: "Logout",
+      active: false,
+      action: true,
+      onClick: true,
+    },
+  ];
+
   const { q, sort_by } = useSelector((state) => state.product);
   const storeParamsProduct = useSelector((state) => state.product);
   const dispatch = useDispatch();
@@ -31,18 +64,19 @@ export default function HistoryPage() {
     sort_by,
   });
 
+  // Get User Data from localStorage
+  const getUser = localStorage.getItem("user");
+  const parsingUser = JSON.parse(getUser);
+  let id = getUser ? parsingUser._id : "";
+
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
     setLoading(true);
     axios
-      .get("/checkout/history", { params: { ...storeParamsProduct } })
+      .get(`/checkout/history/${id}`, { params: { ...storeParamsProduct } })
       .then((response) => {
-        setData(response.data.data);
+        setData(response.data.data.data);
         setPagination(response.data.pagination);
       })
       .catch((error) => {
@@ -55,31 +89,7 @@ export default function HistoryPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, [storeParamsProduct]);
-
-  function handleLogout() {
-    const id = user._id;
-    dispatch({ type: "SET_LOADING", value: true });
-    axios
-      .post(`/users/logout/${id}`)
-      .then((response) => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
-        // return to login page
-        window.location.href = "/marketid/login";
-      })
-      .catch((error) => {
-        const message = error.response?.data?.message;
-        toast(handleErrorMessage(message), {
-          position: toast.POSITION.TOP_RIGHT,
-          type: toast.TYPE.ERROR,
-        });
-      })
-      .finally(() => {
-        dispatch({ type: "SET_LOADING", value: false });
-      });
-  }
+  }, [storeParamsProduct, id]);
 
   function handleOnChange(event) {
     setParams({ ...params, [event.target.name]: event.target.value });
@@ -97,26 +107,11 @@ export default function HistoryPage() {
 
   return (
     <>
-      <Breadcrumb className="mt-5">
-        <Breadcrumb.Item href="/marketid/home">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>History</Breadcrumb.Item>
-      </Breadcrumb>
+      <ABreadcrumb options={options} />
 
       <Row className="mt-4">
         <Col xs={3}>
-          <ListGroup>
-            <ListGroup.Item action href="/marketid/profile">
-              Profile
-            </ListGroup.Item>
-            <ListGroup.Item action href="/marketid/address">
-              Address
-            </ListGroup.Item>
-            <ListGroup.Item active>History</ListGroup.Item>
-
-            <ListGroup.Item action onClick={handleLogout}>
-              Logout
-            </ListGroup.Item>
-          </ListGroup>
+          <AListGroup selector={selector} />
         </Col>
         <Col xs={9}>
           <section>
@@ -153,34 +148,17 @@ export default function HistoryPage() {
             </Form>
           </section>
 
-          <section className="border_color_brighter bg-white p-3 mt-3">
-            <Row className="d-flex align-items-center">
-              <Col lg="2" md="3" sm="3" xs="3">
-                <Image
-                  src={defaultImage}
-                  alt="product-picture"
-                  width={100}
-                  height={90}
-                  className="display_image_history"
-                />
-              </Col>
-              <Col
-                lg="10"
-                md="9"
-                sm="9"
-                xs="9"
-                className="d-flex justify-content-between ps-0 align-items-center"
-              >
-                <h5 className="display_invoice subheading__2 m-0">
-                  Invoice #595959595958484
-                </h5>
-                <h5 className="display_price subheading__2 m-0">Rp. 100.000</h5>
-                <Button variant="success">
-                  <i className="bi bi-eye-fill text-white"></i>
-                </Button>
-              </Col>
-            </Row>
-          </section>
+          {!loading && (
+            <div
+              className="my-2"
+              style={{ height: "29.5rem", overflowY: "auto" }}
+            >
+              {data.map((item, index) => (
+                <HistoryProduct item={item} key={item._id} index={index} />
+              ))}
+            </div>
+          )}
+
           <ComponentPagination
             data={data}
             pagination={pagination}
