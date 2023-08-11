@@ -124,3 +124,176 @@
   color: #fff;
   font-weight: 500;
 }
+
+.button_hover5 {
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+
+.button_hover5:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -0.125rem;
+  left: -0.125rem;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(0.313rem);
+  width: calc(100% + 0.25rem);
+  height: calc(100% + 0.25rem);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.button_hover5:active {
+  color: #000;
+}
+
+.button_hover5:active:after {
+  background: transparent;
+}
+
+.button_hover5:hover:before {
+  opacity: 1;
+}
+
+.button_hover5:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 0.625rem;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button_hover6 {
+  position: relative;
+  padding: 1em 1.8em;
+  outline: none;
+  border: 0.063rem solid #303030;
+  background: #212121;
+  color: #ae00ff;
+  letter-spacing: 0.125rem;
+  font-size: 0.938rem;
+  overflow: hidden;
+  transition: 0.2s;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button_hover6:hover {
+  box-shadow: 0 0 0.625rem #ae00ff, 0 0 1.563rem #001eff, 0 0 3.125rem #ae00ff;
+  transition-delay: 0.6s;
+}
+
+.button_hover6 span {
+  position: absolute;
+}
+
+.button_hover6 span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 0.125rem;
+  background: linear-gradient(90deg, transparent, #ae00ff);
+}
+
+.button_hover6:hover span:nth-child(1) {
+  left: 100%;
+  transition: 0.7s;
+}
+
+.button_hover6 span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 0.125rem;
+  background: linear-gradient(90deg, transparent, #001eff);
+}
+
+.button_hover6:hover span:nth-child(3) {
+  right: 100%;
+  transition: 0.7s;
+  transition-delay: 0.35s;
+}
+
+.button_hover6 span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 0.125rem;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #ae00ff);
+}
+
+.button_hover6:hover span:nth-child(2) {
+  top: 100%;
+  transition: 0.7s;
+  transition-delay: 0.17s;
+}
+
+.button_hover6 span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 0.125rem;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #001eff);
+}
+
+.button_hover6:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 0.7s;
+  transition-delay: 0.52s;
+}
+
+.button_hover6:active {
+  background: #ae00af;
+  background: linear-gradient(to top right, #ae00af, #001eff);
+  color: #bfbfbf;
+  box-shadow: 0 0 8px #ae00ff, 0 0 8px #001eff, 0 0 8px #ae00ff;
+  transition: 0.1s;
+}
+
+.button_hover6:active
+  span:nth-child(1)
+  span:nth-child(2)
+  span:nth-child(2)
+  span:nth-child(2) {
+  transition: none;
+  transition-delay: none;
+}
