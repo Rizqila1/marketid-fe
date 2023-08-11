@@ -1,10 +1,53 @@
 import { useEffect, useState } from "react";
-import { Breadcrumb, Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { axiosInstance as axios } from "../../config/httpsAxios";
 import { useDispatch } from "react-redux";
+import AListGroup from "../../components/AListGroup";
+import ABreadcrumb from "../../components/ABreadCrumb";
 
 export default function AddressPage() {
   const [data, setData] = useState([]);
+
+  // Breadcrumb's
+  const options = [
+    {
+      href: "/marketid",
+      name: "Home",
+      active: false,
+    },
+    {
+      href: "/marketid/address",
+      name: "Address",
+      active: true,
+    },
+  ];
+
+  // Selector ListGroup Component
+  const selector = [
+    {
+      name: "Profile",
+      href: "/marketid/profile",
+      active: false,
+      action: true,
+    },
+    {
+      name: "Address",
+      active: true,
+      action: false,
+    },
+    {
+      name: "History",
+      href: "/marketid/history",
+      active: false,
+      action: true,
+    },
+    {
+      name: "Logout",
+      active: false,
+      action: true,
+      onClick: true,
+    },
+  ];
 
   const dispatch = useDispatch();
   let number = 1;
@@ -26,23 +69,11 @@ export default function AddressPage() {
 
   return (
     <>
-      <Breadcrumb className="mt-5">
-        <Breadcrumb.Item href="/marketid/home">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Address</Breadcrumb.Item>
-      </Breadcrumb>
+      <ABreadcrumb options={options} />
 
       <Row className="mt-4">
         <Col xs={3}>
-          <ListGroup>
-            <ListGroup.Item action href="/marketid/profile">
-              Profile
-            </ListGroup.Item>
-            <ListGroup.Item active>Address</ListGroup.Item>
-            <ListGroup.Item action href="/marketid/history">
-              History
-            </ListGroup.Item>
-            <ListGroup.Item>Logout</ListGroup.Item>
-          </ListGroup>
+          <AListGroup selector={selector} />
         </Col>
         <Col xs={9}>
           <section className="border_color_brighter bg-white p-4">
