@@ -11,7 +11,7 @@ import defaultImg from "../../assets/images/default-picture-profile.png";
 const initialValues = {
   full_name: "",
   email: "",
-  image: "",
+  file_name: "",
   status: false,
 };
 
@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
     .min(3, "must be at least 3 characters")
     .max(15, "15 maximum characters"),
   email: Yup.string().required("is required").email("must be a valid email"),
-  image: Yup.string().required("is required"),
+  file_name: Yup.string().required("is required"),
 });
 
 export default function CardProfile() {
@@ -109,7 +109,7 @@ export default function CardProfile() {
   function handleChangeImage(event) {
     const file = event.currentTarget.files[0];
     // set formik value
-    formik.setFieldValue("image", event.currentTarget.value);
+    formik.setFieldValue("file_name", event.currentTarget.value);
     // set input image
     setImage(file);
 
