@@ -23,29 +23,18 @@ export default function AddressPage() {
   ];
 
   // Selector ListGroup Component
-  const selector = [
+  const menus = [
     {
-      name: "Profile",
-      href: "/marketid/profile",
-      active: false,
-      action: true,
+      title: "Profile",
+      link: "/marketid/profile",
     },
     {
-      name: "Address",
-      active: true,
-      action: false,
+      title: "Address",
+      link: "/marketid/address",
     },
     {
-      name: "History",
-      href: "/marketid/history",
-      active: false,
-      action: true,
-    },
-    {
-      name: "Logout",
-      active: false,
-      action: true,
-      onClick: true,
+      title: "History",
+      link: "/marketid/history",
     },
   ];
 
@@ -73,7 +62,7 @@ export default function AddressPage() {
 
       <Row className="mt-4">
         <Col xs={3}>
-          <AListGroup selector={selector} />
+          <AListGroup menus={menus} />
         </Col>
         <Col xs={9}>
           <section className="border_color_brighter bg-white p-4">

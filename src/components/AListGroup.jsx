@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { axiosInstance as axios } from "../config/httpsAxios";
 import handleErrorMessage from "../utils/handleErrorMessage";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AListGroup(props) {
+  // STORE
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -31,6 +33,14 @@ export default function AListGroup(props) {
         dispatch({ type: "SET_LOADING", value: false });
       });
   }
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleGoToLink(link) {
+    navigate(link);
+  }
+
   return (
     <ListGroup
       style={{
@@ -38,18 +48,23 @@ export default function AListGroup(props) {
           "0.3rem 0.5rem 0.5rem 0rem #0391FC40, 0rem 0.3rem 0.3rem 0rem #00000040",
       }}
     >
-      {props.selector.map((item, index) => (
+      {props.menus.map((item, index) => (
         <ListGroup.Item
-          className={item.name === "Logout" && "text-danger"}
-          key={index}
-          href={item.href}
-          action={item.action}
-          active={item.active}
-          onClick={item.onClick && handleLogout}
+          key={`list-menu-${item.title}-${index}`}
+          active={item.link === location.pathname}
+          action
+          onClick={() => handleGoToLink(item.link)}
         >
-          {item.name}
+          {item.title}
         </ListGroup.Item>
       ))}
+      <ListGroup.Item
+        className="text-danger"
+        action
+        onClick={() => handleLogout()}
+      >
+        Logout
+      </ListGroup.Item>
     </ListGroup>
   );
 }

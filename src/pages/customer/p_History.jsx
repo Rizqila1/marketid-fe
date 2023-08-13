@@ -26,29 +26,18 @@ export default function HistoryPage() {
   ];
 
   // Selector ListGroup Component
-  const selector = [
+  const menus = [
     {
-      name: "Profile",
-      href: "/marketid/profile",
-      active: false,
-      action: true,
+      title: "Profile",
+      link: "/marketid/profile",
     },
     {
-      name: "Address",
-      href: "/marketid/address",
-      active: false,
-      action: true,
+      title: "Address",
+      link: "/marketid/address",
     },
     {
-      name: "History",
-      active: true,
-      action: false,
-    },
-    {
-      name: "Logout",
-      active: false,
-      action: true,
-      onClick: true,
+      title: "History",
+      link: "/marketid/history",
     },
   ];
 
@@ -111,7 +100,7 @@ export default function HistoryPage() {
 
       <Row className="mt-4">
         <Col xs={3}>
-          <AListGroup selector={selector} />
+          <AListGroup menus={menus} />
         </Col>
         <Col xs={9}>
           <section>
