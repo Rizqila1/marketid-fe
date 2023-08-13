@@ -30,7 +30,7 @@ export default function CartPage() {
 
       <Row>
         <Col lg="8" className="px-3">
-          <div style={{ height: "28.5rem", overflowY: "auto" }}>
+          <div style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}>
             {dataProduct.length ? (
               dataProduct.map((data, index) => (
                 <CartProduct

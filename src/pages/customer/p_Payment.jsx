@@ -140,17 +140,22 @@ export default function PaymentPage() {
         </Col>
 
         <Col lg="8">
-          {carts?.length ? (
-            carts.map((data, index) => (
-              <CartProduct
-                data={data}
-                key={`item-cart${data.name}`}
-                index={index}
-              />
-            ))
-          ) : (
-            <ProductNotFound message={"Your Cart Is Empty"} />
-          )}
+          <div
+            style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}
+            className="my-2"
+          >
+            {carts?.length ? (
+              carts.map((data, index) => (
+                <CartProduct
+                  data={data}
+                  key={`item-cart${data.name}`}
+                  index={index}
+                />
+              ))
+            ) : (
+              <ProductNotFound message={"Your Cart Is Empty"} />
+            )}
+          </div>
         </Col>
 
         <Col lg="4">
