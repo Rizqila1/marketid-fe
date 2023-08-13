@@ -139,7 +139,7 @@ export default function HistoryPage() {
 
           {!loading && (
             <div
-              className="my-2"
+              className={!data.length ? "my-2 d-none" : "my-2"}
               style={{ height: "29.5rem", overflowY: "auto" }}
             >
               {data.map((item, index) => (
@@ -147,7 +147,6 @@ export default function HistoryPage() {
               ))}
             </div>
           )}
-
           <ComponentPagination
             data={data}
             pagination={pagination}
