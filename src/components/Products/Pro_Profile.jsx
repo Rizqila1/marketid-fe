@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { axiosInstance as axios } from "../../config/httpsAxios";
 import handleErrorMessage from "../../utils/handleErrorMessage";
 
 import defaultImage from "../../assets/images/default-img-profile.png";
 import "../../assets/css/product-page.css";
-import { Link } from "react-router-dom";
 
 export default function ProductProfile() {
   const [data, setData] = useState([]);
 
-  // Get User Data from localStorage
-  const getUser = localStorage.getItem("user");
-  const parsingUser = JSON.parse(getUser);
-  const id = parsingUser._id;
+  // STORES
+  const { user } = useSelector((state) => state.auth);
+  // Get User Data from store
+  const id = user._id;
 
   useEffect(() => {
     axios
