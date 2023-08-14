@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { axiosInstance as axios } from "../../config/httpsAxios";
 import handleErrorMessage from "../../utils/handleErrorMessage";
-import "../../assets/css/history-page.css";
 import ComponentPagination from "../../components/Pagination";
 import ABreadcrumb from "../../components/ABreadCrumb";
 import AListGroup from "../../components/AListGroup";
 import HistoryProduct from "../../components/History/His_Product";
+import "../../assets/css/history-page.css";
+import convertFormatCurrency from "../../utils/convertFormatCurrency";
 
 export default function HistoryPage() {
   // Breadcrumb's
@@ -41,32 +42,38 @@ export default function HistoryPage() {
     },
   ];
 
+  // STORES
   const { q, sort_by } = useSelector((state) => state.product);
   const storeParamsProduct = useSelector((state) => state.product);
+
+  const { user } = useSelector((state) => state.auth);
+  const id = user._id;
   const dispatch = useDispatch();
 
+  // STATES
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isLoad, setIsLoad] = useState(true);
   const [params, setParams] = useState({
     q,
     sort_by,
   });
+  const [totalExpense, setTotalExpense] = useState(0);
 
-  // Get User Data from localStorage
-  const getUser = localStorage.getItem("user");
-  const parsingUser = JSON.parse(getUser);
-  let id = getUser ? parsingUser._id : "";
-
+  // FETCHING DATA
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
     setLoading(true);
     axios
-      .get(`/checkout/history/${id}`, { params: { ...storeParamsProduct } })
+      .get(`/api/checkout/history/${id}`, {
+        params: { ...storeParamsProduct },
+      })
       .then((response) => {
         setData(response.data.data.data);
         setPagination(response.data.pagination);
+        setTotalExpense(response.data.data.total_expense);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -77,11 +84,20 @@ export default function HistoryPage() {
       })
       .finally(() => {
         setLoading(false);
+        setIsLoad(false);
       });
-  }, [storeParamsProduct, id]);
+  }, [id, storeParamsProduct, isLoad]);
 
   function handleOnChange(event) {
-    setParams({ ...params, [event.target.name]: event.target.value });
+    const key = event.target.name;
+    setParams({ params: params.sort_by, [key]: event.target.value });
+    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
+  }
+
+  function handleOnChangeSearch(event) {
+    const key = event.target.name;
+    setParams({ params: params.q, [key]: event.target.value });
+    if (event.target.value.length === 0) setIsLoad(true);
   }
 
   function handleSubmit(event) {
@@ -99,10 +115,10 @@ export default function HistoryPage() {
       <ABreadcrumb options={options} />
 
       <Row className="mt-4">
-        <Col xs={3}>
+        <Col lg="3" xs={12} className="mb-md-4 mb-sm-2 mb-xs-5">
           <AListGroup menus={menus} />
         </Col>
-        <Col xs={9}>
+        <Col lg="9" xs={12}>
           <section>
             <Form
               className="w_container_search_history my-md-0 mt-3"
@@ -124,7 +140,7 @@ export default function HistoryPage() {
                   className="w_input_search_history"
                   name="q"
                   value={params.q}
-                  onChange={handleOnChange}
+                  onChange={handleOnChangeSearch}
                 />
                 <Button
                   type="submit"
@@ -139,21 +155,39 @@ export default function HistoryPage() {
 
           {!loading && (
             <div
-              className={!data.length ? "my-2 d-none" : "my-2"}
-              style={{ height: "29.5rem", overflowY: "auto" }}
+              className={!data.length ? "my-3 d-none" : "my-3"}
+              style={{ height: "calc(100vh - 16rem)", overflowY: "auto" }}
             >
               {data.map((item, index) => (
                 <HistoryProduct item={item} key={item._id} index={index} />
               ))}
             </div>
           )}
-          <ComponentPagination
-            data={data}
-            pagination={pagination}
-            setPagination={setPagination}
-            message={"There's Nothing In Here :("}
-            loading={loading}
-          />
+
+          <Row className="d-flex align-items-center">
+            {!loading && data.length !== 0 && (
+              <Col xs="6">
+                <div className="display_total_expense subheading__2 d-flex align-items-center">
+                  <h5 className="text-primary d-flex">Expense Total: &nbsp;</h5>
+                  <h5>
+                    {"Rp. " +
+                      convertFormatCurrency(totalExpense ? totalExpense : null)}
+                  </h5>
+                </div>
+              </Col>
+            )}
+            <Col
+              xs={!loading && !data.length ? "12" : "6" && loading ? "12" : "6"}
+            >
+              <ComponentPagination
+                data={data}
+                pagination={pagination}
+                setPagination={setPagination}
+                message={"There's Nothing In Here :("}
+                loading={loading}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>

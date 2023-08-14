@@ -87,4 +87,8 @@
   .display_price {
     font-size: 0.8rem !important;
   }
+
+  .display_total_expense {
+    font-size: 1rem !important;
+  }
 }
