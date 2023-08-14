@@ -37,7 +37,7 @@ export default function CartModalComponent(props) {
     };
 
     axios
-      .post("/checkout/create", dataCheckout)
+      .post("/api/checkout/create", dataCheckout)
       .then((response) => {
         const invoice = response.data.data.invoice;
 

@@ -41,7 +41,7 @@ export default function CartCheckout(props) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .get("/address/list")
+      .get("/api/address/list")
       .then((response) => {
         setData(response.data.data);
       })
@@ -64,7 +64,7 @@ export default function CartCheckout(props) {
       setLoading(true);
 
       axios
-        .get(`/address/detail/${idAddress}`)
+        .get(`/api/address/detail/${idAddress}`)
         .then((response) => {
           const { province, district, regency, village, passcode, address } =
             response.data.data;

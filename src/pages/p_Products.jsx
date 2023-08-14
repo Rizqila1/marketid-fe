@@ -35,7 +35,7 @@ export default function Products() {
 
     setLoading(true);
     axios
-      .get("/products", { params: { ...storeParamsProduct } })
+      .get("/api/products", { params: { ...storeParamsProduct } })
       .then((response) => {
         setData(response.data.data);
         setPagination(response.data.pagination);

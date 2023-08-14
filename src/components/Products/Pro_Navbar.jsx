@@ -49,7 +49,7 @@ export default function ProductNavbar() {
     const id = user._id;
     dispatch({ type: "SET_LOADING", value: true });
     axios
-      .post(`/users/logout/${id}`)
+      .post(`/api/users/logout/${id}`)
       .then((response) => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");

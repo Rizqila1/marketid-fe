@@ -14,7 +14,7 @@ export default function ProductWelcoming() {
 
   useEffect(() => {
     axios
-      .get(`/users/details/${id}`)
+      .get(`/api/users/details/${id}`)
       .then((response) => {
         setData(response.data.data);
       })

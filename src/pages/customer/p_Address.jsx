@@ -44,7 +44,7 @@ export default function AddressPage() {
   useEffect(() => {
     dispatch({ type: "SET_LOADING", value: true });
     axios
-      .get("/address/list")
+      .get("/api/address/list")
       .then((response) => {
         setData(response.data.data);
       })
