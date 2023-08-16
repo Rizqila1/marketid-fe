@@ -78,6 +78,12 @@ export default function CardAddressSection() {
     axios
       .delete(`/api/address/delete/${id}`)
       .then((response) => {
+        const message = response.data.message;
+
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.SUCCESS,
+        });
         setIsLoad(true);
       })
       .catch((error) => {
