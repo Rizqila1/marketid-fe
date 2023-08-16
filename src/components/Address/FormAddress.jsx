@@ -54,9 +54,7 @@ const validationSchema = Yup.object({
   address: Yup.string().required("Field is required"),
 });
 
-export default function FormAddress() {
-  const navigate = useNavigate();
-
+export default function FormAddress({ detail, isEdit = false }) {
   // FORMIK
   const formik = useFormik({
     initialValues,
@@ -65,6 +63,36 @@ export default function FormAddress() {
   });
 
   const dispatch = useDispatch();
+  // PROPS isEdit
+  useEffect(() => {
+    if (isEdit && JSON.stringify(detail) !== "{}") {
+      formik.setFieldValue("name", detail.name);
+      formik.setFieldValue("passcode", detail.passcode);
+      formik.setFieldValue("address", detail.address);
+
+      setIsLoadProvince(true);
+      getOptionsDistrict(detail.regency._id);
+      getOptionsVillage(detail.district._id);
+
+      handleChangeProvince(
+        { target: { name: "province._id", value: detail.province._id } },
+        "province.name"
+      );
+      handleChangeRegency(
+        { target: { name: "regency._id", value: detail.regency._id } },
+        "regency.name"
+      );
+
+      handleChangeDistrict(
+        { target: { name: "district._id", value: detail.district._id } },
+        "district.name"
+      );
+      handleChangeVillage(
+        { target: { name: "village._id", value: detail.village._id } },
+        "village.name"
+      );
+    }
+  }, [isEdit, detail]);
 
   const [isLoadProvince, setIsLoadProvince] = useState(true);
   const [dataProvince, setDataProvince] = useState([]);
@@ -220,11 +248,19 @@ export default function FormAddress() {
     formik.setFieldValue(key, findById ? findById.name : "");
   }
 
+  const navigate = useNavigate();
   function handleOnSubmit(form) {
+    if (!isEdit) createAddress(form);
+    else {
+      editAddress(form);
+    }
+  }
+
+  function createAddress(payload) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .post("/api/address/create", form)
+      .post("/api/address/create", payload)
       .then((response) => {
         const message = response.data.message;
 
@@ -245,6 +281,37 @@ export default function FormAddress() {
       .finally(() => {
         dispatch({ type: "SET_LOADING", value: false });
       });
+  }
+
+  function editAddress(payload) {
+    dispatch({ type: "SET_LOADING", value: true });
+
+    axios
+      .put(`/api/address/update/${detail._id}`, payload)
+      .then((response) => {
+        const message = response.data.message;
+
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.SUCCESS,
+        });
+        navigate("/marketid/address");
+      })
+      .catch((error) => {
+        const message = error.response?.data?.message;
+
+        toast(handleErrorMessage(message), {
+          position: toast.POSITION.TOP_RIGHT,
+          type: toast.TYPE.ERROR,
+        });
+      })
+      .finally(() => {
+        dispatch({ type: "SET_LOADING", value: false });
+      });
+  }
+
+  function handleCancel() {
+    formik.resetForm(navigate("/marketid/address"));
   }
 
   return (
@@ -418,9 +485,22 @@ export default function FormAddress() {
               </Form.Group>
             </Col>
 
-            <Col xs="12">
+            <Col
+              xs="12"
+              className="d-flex justify-content-end align-items-center mt-3"
+            >
+              {isEdit && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="me-2"
+                  onClick={() => handleCancel()}
+                >
+                  Cancel
+                </Button>
+              )}
               <Button type="submit" variant="success">
-                Create
+                {isEdit ? "Update" : "Create"}
               </Button>
             </Col>
           </Row>

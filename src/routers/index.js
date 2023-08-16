@@ -93,7 +93,10 @@ export default createBrowserRouter(
           path="/marketid/address/create"
           element={<CreateAddressPage />}
         />
-        <Route path="/marketid/address/edit" element={<EditAddressPage />} />
+        <Route
+          path="/marketid/address/edit/:id"
+          element={<EditAddressPage />}
+        />
         <Route path="/marketid/history" element={<HistoryPage />} />
       </Route>
 

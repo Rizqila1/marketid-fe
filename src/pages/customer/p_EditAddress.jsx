@@ -1,130 +1,87 @@
-import { Breadcrumb, Row, Col, ListGroup, Button, Form } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import ABreadcrumb from "../../components/ABreadCrumb";
+import AListGroup from "../../components/AListGroup";
+import FormAddress from "../../components/Address/FormAddress";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { axiosInstance as axios } from "../../config/httpsAxios";
+import handleErrorMessage from "../../utils/handleErrorMessage";
+import { toast } from "react-toastify";
 
 export default function EditAddressPage() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  // Breadcrumb's
+  const options = [
+    {
+      href: "/marketid",
+      name: "Home",
+      active: false,
+    },
+    {
+      href: "/marketid/address",
+      name: "Address",
+      active: false,
+    },
+    {
+      href: "/marketid/address/edit",
+      name: "Edit",
+      active: true,
+    },
+  ];
+
+  // Selector ListGroup Component
+  const menus = [
+    {
+      title: "Profile",
+      link: "/marketid/profile",
+    },
+    {
+      title: "Address",
+      link: `/marketid/address/edit/${id}`,
+    },
+    {
+      title: "History",
+      link: "/marketid/history",
+    },
+  ];
+
+  const [detail, setDetail] = useState({});
+  useEffect(() => {
+    if (id) {
+      dispatch({ type: "SET_LOADING", value: true });
+
+      axios
+        .get(`/api/address/detail/${id}`)
+        .then((response) => {
+          setDetail(response.data.data);
+        })
+        .catch((error) => {
+          const message = error.response?.data?.message;
+
+          toast(handleErrorMessage(message), {
+            position: toast.POSITION.TOP_RIGHT,
+            type: toast.TYPE.ERROR,
+          });
+        })
+        .finally(() => {
+          dispatch({ type: "SET_LOADING", value: false });
+        });
+    }
+  }, [id, dispatch]);
+
   return (
-    <>
-      <Breadcrumb className="mt-5">
-        <Breadcrumb.Item href="/marketid/home">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href="/marketid/address">Address</Breadcrumb.Item>
-        <Breadcrumb.Item active>Edit</Breadcrumb.Item>
-      </Breadcrumb>
+    <Row className="mt-4">
+      <ABreadcrumb options={options} />
 
-      <Row className="mt-4">
-        <Col xs={3}>
-          <ListGroup>
-            <ListGroup.Item action href="/marketid/profile">
-              Profile
-            </ListGroup.Item>
-            <ListGroup.Item active>Address</ListGroup.Item>
-            <ListGroup.Item action href="/marketid/history">
-              History
-            </ListGroup.Item>
-            <ListGroup.Item>Logout</ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col xs={9}>
-          <section className="border_color_brighter bg-white p-4">
-            <Row>
-              <Col lg="6">
-                <Form className="mx-4">
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="">Name</Form.Label>
-                    <Form.Control
-                      id=""
-                      name=""
-                      maxLength={32}
-                      className="border_color"
-                      type="text"
-                      placeholder="Input your address name"
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Province</Form.Label>
-                    <Form.Select className="border_color">
-                      <option>Select</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Region/City</Form.Label>
-                    <Form.Select className="border_color">
-                      <option>Select</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="">Address</Form.Label>
-                    <Form.Control
-                      id=""
-                      name=""
-                      maxLength={100}
-                      className="border_color"
-                      type="text"
-                      placeholder="Input your detail address"
-                    />
-                  </Form.Group>
-                </Form>
-              </Col>
-
-              <Col lg="6">
-                <Form className="mx-4">
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="">District</Form.Label>
-                    <Form.Select className="border_color">
-                      <option>Select</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Village</Form.Label>
-                    <Form.Select className="border_color">
-                      <option>Select</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="">Passcode</Form.Label>
-                    <Form.Control
-                      id=""
-                      name=""
-                      maxLength={6}
-                      className="border_color"
-                      type="text"
-                      placeholder="Input passcode"
-                    />
-                  </Form.Group>
-                </Form>
-              </Col>
-              <div className="d-flex justify-content-end pb-4 pe-4">
-                <Button
-                  className="mx-3"
-                  variant="secondary"
-                  style={{ width: "10.188rem" }}
-                >
-                  Cancel
-                </Button>
-
-                <Button variant="success" style={{ width: "10.188rem" }}>
-                  Create
-                </Button>
-              </div>
-            </Row>
-          </section>
-        </Col>
-      </Row>
-    </>
+      <Col lg={3} xs={12} className="mb-lg-0 mb-4">
+        <AListGroup menus={menus} />
+      </Col>
+      <Col xs={9}>
+        <FormAddress isEdit={true} detail={detail} />
+      </Col>
+    </Row>
   );
 }
