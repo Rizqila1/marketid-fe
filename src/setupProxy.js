@@ -1,6 +1,6 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const baseURL = {
+const proxybaseURL = {
   target: `https://market-id.vercel.app/api/v1`,
   changeOrigin: true,
   pathRewrite: {
@@ -8,6 +8,15 @@ const baseURL = {
   },
 };
 
+const proxyIndonesiaRegionAPI = {
+  target: `http://www.emsifa.com/api-wilayah-indonesia/api`,
+  changeOrigin: true,
+  pathRewrite: {
+    "^/api-region": "",
+  },
+};
+
 module.exports = function (app) {
-  app.use("/api", createProxyMiddleware(baseURL));
+  app.use("/api", createProxyMiddleware(proxybaseURL));
+  app.use("/api-region", createProxyMiddleware(proxyIndonesiaRegionAPI));
 };
