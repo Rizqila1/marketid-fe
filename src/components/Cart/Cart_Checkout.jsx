@@ -7,6 +7,7 @@ import convertFormatCurrency from "../../utils/convertFormatCurrency";
 import handleErrorMessage from "../../utils/handleErrorMessage";
 import CartModalComponent from "./Cart_Modal";
 import Loading3 from "../Loading3";
+import convertUppercaseEachWord from "../../utils/convertUppercaseEachWord";
 
 export default function CartCheckout(props) {
   const {
@@ -117,7 +118,7 @@ export default function CartCheckout(props) {
       {isCheckout ? (
         <Container className="pt-3">
           <h5 className="subheading__4">
-            {loading ? <Loading3 /> : fullAddress}
+            {loading ? <Loading3 /> : convertUppercaseEachWord(fullAddress)}
           </h5>
 
           <section className="d-flex justify-content-between">
@@ -179,7 +180,7 @@ export default function CartCheckout(props) {
 
           {addressName ? (
             <h5 className="subheading__4">
-              {selectAddressById(addressName).address}
+              {convertUppercaseEachWord(selectAddressById(addressName).address)}
             </h5>
           ) : (
             <h5 className="subheading__4">-</h5>
