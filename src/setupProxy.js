@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const proxybaseURL = {
-  target: `https://market-id.vercel.app/api/v1`,
+  target: process.env.REACT_APP_BASE_URL || "",
   changeOrigin: true,
   pathRewrite: {
     "^/api": "",
@@ -9,7 +9,7 @@ const proxybaseURL = {
 };
 
 const proxyIndonesiaRegionAPI = {
-  target: `http://www.emsifa.com/api-wilayah-indonesia/api`,
+  target: process.env.REACT_APP_API_INDONESIA_REGION || "",
   changeOrigin: true,
   pathRewrite: {
     "^/api-region": "",
