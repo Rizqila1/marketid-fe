@@ -82,7 +82,6 @@ export default function FormAddress({ detail, isEdit = false }) {
         { target: { name: "regency._id", value: detail.regency._id } },
         "regency.name"
       );
-
       handleChangeDistrict(
         { target: { name: "district._id", value: detail.district._id } },
         "district.name"
@@ -92,6 +91,7 @@ export default function FormAddress({ detail, isEdit = false }) {
         "village.name"
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, detail]);
 
   const [isLoadProvince, setIsLoadProvince] = useState(true);
@@ -183,7 +183,6 @@ export default function FormAddress({ detail, isEdit = false }) {
   }
 
   // GET DISTRICT
-
   const [dataDistrict, setDataDistrict] = useState([]);
   function getOptionsDistrict(id) {
     dispatch({ type: "SET_LOADING", value: true });
