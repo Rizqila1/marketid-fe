@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { axiosInstance as axios } from "../config/httpsAxios";
 import handleErrorMessage from "../utils/handleErrorMessage";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function AListGroup(props) {
   // STORE
@@ -35,10 +35,9 @@ export default function AListGroup(props) {
   }
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   function handleGoToLink(link) {
-    navigate(link);
+    window.location.href = link;
   }
 
   return (
