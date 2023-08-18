@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { axiosInstance as axios } from "../config/httpsAxios";
 import handleErrorMessage from "../utils/handleErrorMessage";
-import defaultImage from "../assets/images/default-image.png";
-import SkeletonCard from "../components/Products/Pro_Skeleton";
 import convertFormatCurrency from "../utils/convertFormatCurrency";
 
+import defaultImage from "../assets/images/default-image.png";
 import "../assets/css/product-page.css";
 import "../assets/css/custom-product-navbar.css";
 
 // Component
+import SkeletonCard from "../components/Products/Pro_Skeleton";
 import ComponentPagination from "../components/Pagination";
 import ProductCarousels from "../components/Products/Pro_Carousels";
 import ProductAboutUs from "../components/Products/Pro_AboutUs";
@@ -101,7 +101,7 @@ export default function Products() {
               <div className="display_card">
                 <Card
                   style={{
-                    border: "0.06rem solid #ACB5BD ",
+                    border: "0.06rem solid #ACB5BD",
                     boxShadow: "0rem 0.13rem 0.3rem 0rem #00000040",
                   }}
                 >

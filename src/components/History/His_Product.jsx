@@ -12,7 +12,12 @@ export default function HistoryProduct(props) {
   }
 
   return (
-    <Card className="border_color_brighter bg-white mt-2 mb-3">
+    <Card
+      className="border_color_brighter bg-white mt-2 mb-3"
+      style={{
+        boxShadow: "0rem 0.3rem 0.3rem 0rem #00000040",
+      }}
+    >
       <Card.Body className="d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
           <Image
