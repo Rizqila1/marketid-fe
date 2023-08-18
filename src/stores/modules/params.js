@@ -7,7 +7,7 @@ const initialState = {
 };
 
 // REDUCER
-const useReducerParamsProduct = (state = initialState, actions) => {
+const useReducerParams = (state = initialState, actions) => {
   switch (actions.type) {
     case "ACTION_SEARCH":
       return {
@@ -38,4 +38,4 @@ const useReducerParamsProduct = (state = initialState, actions) => {
   }
 };
 
-export default useReducerParamsProduct;
+export default useReducerParams;

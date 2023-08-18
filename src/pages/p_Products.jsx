@@ -26,7 +26,7 @@ export default function Products() {
 
   // STORE
   const { token, user } = useSelector((state) => state.auth);
-  const storeParamsProduct = useSelector((state) => state.product);
+  const storeParams = useSelector((state) => state.params);
   const storeCarts = useSelector((state) => state.carts);
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export default function Products() {
 
     setLoading(true);
     axios
-      .get("/api/products", { params: { ...storeParamsProduct } })
+      .get("/api/products", { params: { ...storeParams } })
       .then((response) => {
         setData(response.data.data);
         setPagination(response.data.pagination);
@@ -50,7 +50,7 @@ export default function Products() {
       .finally(() => {
         setLoading(false);
       });
-  }, [storeParamsProduct]);
+  }, [storeParams]);
 
   function handleCart(product) {
     let data = storeCarts.carts;

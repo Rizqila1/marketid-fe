@@ -43,8 +43,7 @@ export default function HistoryPage() {
   ];
 
   // STORES
-  const { q, sort_by } = useSelector((state) => state.product);
-  const storeParamsProduct = useSelector((state) => state.product);
+  const storeParams = useSelector((state) => state.params);
 
   const { user } = useSelector((state) => state.auth);
   const id = user._id;
@@ -55,59 +54,51 @@ export default function HistoryPage() {
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [isLoad, setIsLoad] = useState(true);
-  const [params, setParams] = useState({
-    q,
-    sort_by,
-  });
   const [totalExpense, setTotalExpense] = useState(0);
 
   // FETCHING DATA
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
-    setLoading(true);
-    axios
-      .get(`/api/checkout/history/${id}`, {
-        params: { ...storeParamsProduct },
-      })
-      .then((response) => {
-        setData(response.data.data.data);
-        setPagination(response.data.pagination);
-        setTotalExpense(response.data.data.total_expense);
-      })
-      .catch((error) => {
-        const message = error.response?.data?.message;
-        toast(handleErrorMessage(message), {
-          position: toast.POSITION.TOP_RIGHT,
-          type: toast.TYPE.ERROR,
+    if (isLoad) {
+      setLoading(true);
+      axios
+        .get(`/api/checkout/history/${id}`, {
+          params: { ...storeParams },
+        })
+        .then((response) => {
+          setData(response.data.data.data);
+          setPagination(response.data.pagination);
+          setTotalExpense(response.data.data.total_expense);
+        })
+        .catch((error) => {
+          const message = error.response?.data?.message;
+          toast(handleErrorMessage(message), {
+            position: toast.POSITION.TOP_RIGHT,
+            type: toast.TYPE.ERROR,
+          });
+        })
+        .finally(() => {
+          setLoading(false);
+          setIsLoad(false);
         });
-      })
-      .finally(() => {
-        setLoading(false);
-        setIsLoad(false);
-      });
-  }, [id, storeParamsProduct, isLoad]);
+    }
+  }, [id, storeParams, isLoad]);
 
   function handleOnChange(event) {
-    const key = event.target.name;
-    setParams({ params: params.sort_by, [key]: event.target.value });
-    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
+    dispatch({ type: "ACTION_SORT_BY", value: event.target.value });
+    setIsLoad(true);
   }
 
   function handleOnChangeSearch(event) {
-    const key = event.target.name;
-    setParams({ params: params.q, [key]: event.target.value });
+    dispatch({ type: "ACTION_SEARCH", value: event.target.value });
     if (event.target.value.length === 0) setIsLoad(true);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // SET VALUE PARAMS Q & SORT_BY TO STORE PRODUCT
-    dispatch({ type: "ACTION_SEARCH", value: params.q });
-    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
     // SET DEFAULT PAGE SO THAT WHEN DOING FILTER ITS AUTOMATICALLY BACK/SET TO PAGE 1
     dispatch({ type: "ACTION_PAGE", value: 1 });
+    setIsLoad(true);
   }
 
   return (
@@ -128,7 +119,7 @@ export default function HistoryPage() {
                 <Form.Select
                   className="w_select_search_history"
                   name="sort_by"
-                  value={params.sort_by}
+                  value={storeParams.sort_by}
                   onChange={handleOnChange}
                 >
                   <option value="desc">Latest</option>
@@ -139,7 +130,7 @@ export default function HistoryPage() {
                   placeholder="Search by Invoice..."
                   className="w_input_search_history"
                   name="q"
-                  value={params.q}
+                  value={storeParams.q}
                   onChange={handleOnChangeSearch}
                 />
                 <Button
@@ -185,6 +176,7 @@ export default function HistoryPage() {
                 setPagination={setPagination}
                 message={"There's Nothing In Here :("}
                 loading={loading}
+                handleLoad={() => setIsLoad(true)}
               />
             </Col>
           </Row>

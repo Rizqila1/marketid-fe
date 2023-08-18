@@ -6,11 +6,20 @@ import ProductNotFound from "./Products/Pro_NotFound";
 import Loading2 from "./Loading2";
 
 export default function ComponentPagination(props) {
-  const storeParamsProduct = useSelector((state) => state.product);
+  const {
+    setPagination,
+    pagination,
+    loading,
+    data,
+    message,
+    handleLoad = () => {},
+  } = props;
+  const storeParams = useSelector((state) => state.params);
   const dispatch = useDispatch();
 
   function handleChange(event) {
     dispatch({ type: "ACTION_PER_PAGE", value: event.target.value });
+    handleLoad();
 
     // SET DEFAULT PAGE SO THAT WHEN DOING FILTER ITS AUTOMATICALLY BACK/SET TO PAGE 1
     dispatch({ type: "ACTION_PAGE", value: 1 });
@@ -18,12 +27,13 @@ export default function ComponentPagination(props) {
 
   function handlePagination(page) {
     dispatch({ type: "ACTION_PAGE", value: page });
-    props.setPagination({ ...props.pagination, page: page });
+    setPagination({ ...pagination, page: page });
+    handleLoad();
   }
 
   const customizeLoader = () => {
-    if (props.loading === true) return <Loading2 />;
-    if (!props.data?.length) return <ProductNotFound message={props.message} />;
+    if (loading === true) return <Loading2 />;
+    if (!data?.length) return <ProductNotFound message={message} />;
   };
 
   return (
@@ -35,7 +45,7 @@ export default function ComponentPagination(props) {
           <p className="paragraph__3 mb-3">Per Page</p>
           <div className="mb-3 mx-3">
             <Form.Select
-              value={storeParamsProduct.per_page}
+              value={storeParams.per_page}
               onChange={handleChange}
               style={{ width: "5rem" }}
             >

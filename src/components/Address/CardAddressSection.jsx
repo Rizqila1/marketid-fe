@@ -10,14 +10,10 @@ import handleErrorMessage from "../../utils/handleErrorMessage";
 
 export default function CardAddressSection() {
   // STORES
-  const { q, sort_by } = useSelector((state) => state.product);
-  const storeParamsProduct = useSelector((state) => state.product);
+  const storeParams = useSelector((state) => state.params);
 
   const [data, setData] = useState([]);
-  const [params, setParams] = useState({
-    q,
-    sort_by,
-  });
+
   const [isLoad, setIsLoad] = useState(true);
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
@@ -25,45 +21,45 @@ export default function CardAddressSection() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-
-    dispatch({ type: "SET_LOADING", value: true });
-    axios
-      .get("/api/address/list", { params: { ...storeParamsProduct } })
-      .then((response) => {
-        setData(response.data.data);
-        setPagination(response.data.pagination);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        dispatch({ type: "SET_LOADING", value: false });
-        setIsLoad(false);
-        setLoading(false);
-      });
-  }, [dispatch, storeParamsProduct, isLoad]);
+    if (isLoad) {
+      setLoading(true);
+      dispatch({ type: "SET_LOADING", value: true });
+      axios
+        .get("/api/address/list", { params: { ...storeParams } })
+        .then((response) => {
+          setData(response.data.data);
+          setPagination(response.data.pagination);
+        })
+        .catch((error) => {
+          const message = error.response?.data?.message;
+          toast(handleErrorMessage(message), {
+            position: toast.POSITION.TOP_RIGHT,
+            type: toast.TYPE.ERROR,
+          });
+        })
+        .finally(() => {
+          dispatch({ type: "SET_LOADING", value: false });
+          setIsLoad(false);
+          setLoading(false);
+        });
+    }
+  }, [dispatch, storeParams, isLoad]);
 
   function handleOnChange(event) {
-    const key = event.target.name;
-    setParams({ params: params.sort_by, [key]: event.target.value });
-    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
+    dispatch({ type: "ACTION_SORT_BY", value: event.target.value });
+    setIsLoad(true);
   }
 
   function handleOnChangeSearch(event) {
-    const key = event.target.name;
-    setParams({ params: params.q, [key]: event.target.value });
+    dispatch({ type: "ACTION_SEARCH", value: event.target.value });
     if (event.target.value.length === 0) setIsLoad(true);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    // SET VALUE PARAMS Q & SORT_BY TO STORE PRODUCT
-    dispatch({ type: "ACTION_SEARCH", value: params.q });
-    dispatch({ type: "ACTION_SORT_BY", value: params.sort_by });
     // SET DEFAULT PAGE SO THAT WHEN DOING FILTER ITS AUTOMATICALLY BACK/SET TO PAGE 1
     dispatch({ type: "ACTION_PAGE", value: 1 });
+    setIsLoad(true);
   }
 
   // EDIT & DELETE
@@ -117,7 +113,7 @@ export default function CardAddressSection() {
                 <Form.Select
                   className="w_select_search_history"
                   name="sort_by"
-                  value={params.sort_by}
+                  value={storeParams.sort_by}
                   onChange={handleOnChange}
                 >
                   <option value="desc">Latest</option>
@@ -128,7 +124,7 @@ export default function CardAddressSection() {
                   placeholder="Search address name"
                   className="w_input_search_history"
                   name="q"
-                  value={params.q}
+                  value={storeParams.q}
                   onChange={handleOnChangeSearch}
                 />
 
@@ -147,9 +143,9 @@ export default function CardAddressSection() {
             <Button
               href="/marketid/address/create"
               variant="success"
-              className="button_hover7 create_button w-100"
+              className="button_hover7 create_button w-100 d-flex justify-content-center align-items-center"
             >
-              Create <i className="bi bi-pencil-fill mx-1"></i>
+              Create<i className="bi bi-pencil-fill mx-1"></i>
             </Button>
           </Col>
 
