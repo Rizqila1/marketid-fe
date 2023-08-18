@@ -30,8 +30,10 @@ const LayoutAuthVisitor = ({ auth, children }) => {
   const { token } = auth;
   const location = useLocation();
   const isLogin = ["/marketid"].includes(location.pathname);
+  const pages = ["/marketid/about"].includes(location.pathname);
 
   if (isLogin && !token) return children;
+  if ((pages && token) || (pages && !token)) return children;
   if (token && isLogin) return <Navigate to="/marketid/home" replace />;
 };
 
