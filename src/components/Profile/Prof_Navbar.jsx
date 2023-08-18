@@ -7,7 +7,8 @@ export default function ProfileNavbarComponent() {
         variant="dark"
         bg="primary"
         expand="md"
-        className="position-fixed w-100 z-3"
+        className="position-fixed w-100"
+        style={{ zIndex: "10" }}
       >
         <Container>
           <Navbar.Brand className="heading__4" href="/marketid">

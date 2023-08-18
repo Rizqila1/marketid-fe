@@ -53,6 +53,11 @@
   width: 24%;
 }
 
+.display_aboutus {
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+}
+
 .carousel-inner {
   border-radius: 0.5rem;
 }
@@ -226,22 +231,23 @@
   }
 
   .card__avatar {
-    width: 2.4rem !important;
-    height: 2.4rem !important;
-    top: calc(82% - 57px);
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    top: calc(82% - 55px);
   }
 
   .card__title {
-    width: 4.2rem;
-    font-size: 0.7rem !important;
-    padding: 0.2rem !important;
+    padding: 0.05rem !important;
     padding-left: 0rem !important;
     padding-right: 0rem !important;
+    margin-top: 1rem !important;
   }
 
   .display_aboutus {
     height: 5rem !important;
-    width: 14rem !important;
+    width: 9rem !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
   }
 }
 
@@ -276,14 +282,20 @@
   .card__avatar {
     width: 2.5rem !important;
     height: 2.5rem !important;
-    top: calc(82% - 57px);
+    top: calc(82% - 55px);
   }
 
   .card__title {
     width: 4rem;
-    font-size: 0.65rem !important;
-    padding: 0.2rem !important;
+    padding: 0.05rem !important;
     padding-left: 0rem !important;
     padding-right: 0rem !important;
+  }
+
+  .display_aboutus {
+    height: 5rem !important;
+    width: 10rem !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
   }
 }

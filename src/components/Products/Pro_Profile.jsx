@@ -46,9 +46,14 @@ export default function ProductProfile() {
         </div>
         <Link
           to="/marketid/profile"
-          className="d-flex card__title subheading__3 text-capitalize text-decoration-none"
+          className="d-flex text-capitalize text-decoration-none"
         >
-          <div className="text-end px-3">Profile</div>
+          <button className="button_hover6 subheading__3 card__title">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span> Profile
+          </button>
         </Link>
       </div>
     </>

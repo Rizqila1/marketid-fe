@@ -18,7 +18,7 @@ import { useState } from "react";
 export default function ProductNavbar() {
   // STORE
   const { token, user } = useSelector((state) => state.auth);
-  const { q, sort_by } = useSelector((state) => state.product);
+  const { q, sort_by } = useSelector((state) => state.params);
   const storeCarts = useSelector((state) => state.carts);
   const dispatch = useDispatch();
 
@@ -138,13 +138,13 @@ export default function ProductNavbar() {
                 <>
                   <Link
                     to="/marketid/login"
-                    className="me-md-3 my-md-0 my-3 me-0 btn btn-outline-light"
+                    className="me-md-3 my-md-0 my-3 me-0 btn btn-outline-light subheading__4"
                   >
                     Login
                   </Link>
                   <Link
                     to="/marketid/register"
-                    className="text-primary btn btn-light"
+                    className="text-primary btn btn-light subheading__4"
                   >
                     Register
                   </Link>
