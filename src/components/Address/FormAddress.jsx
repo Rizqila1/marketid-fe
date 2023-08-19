@@ -51,7 +51,9 @@ const validationSchema = Yup.object({
   passcode: Yup.string()
     .required("Field is required")
     .matches(/^[0-9]*$/, "Please input number only"),
-  address: Yup.string().required("Field is required"),
+  address: Yup.string()
+    .required("Field is required")
+    .min(12, "Input minimum atleast 12 characters"),
 });
 
 export default function FormAddress({ detail, isEdit = false }) {
@@ -521,13 +523,19 @@ export default function FormAddress({ detail, isEdit = false }) {
                 <Button
                   type="button"
                   variant="secondary"
-                  className="me-2"
+                  className="me-2 fw-semibold"
+                  style={{ width: "8rem" }}
                   onClick={() => handleCancel()}
                 >
                   Cancel
                 </Button>
               )}
-              <Button type="submit" variant="success">
+              <Button
+                type="submit"
+                variant="success"
+                className="fw-semibold"
+                style={{ width: "8rem" }}
+              >
                 {isEdit ? "Update" : "Create"}
               </Button>
             </Col>
