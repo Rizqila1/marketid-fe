@@ -79,7 +79,7 @@ export default function EditAddressPage() {
       <Col lg={3} xs={12} className="mb-lg-0 mb-4">
         <AListGroup menus={menus} />
       </Col>
-      <Col xs={9}>
+      <Col lg={9} xs={12}>
         <FormAddress isEdit={true} detail={detail} />
       </Col>
     </Row>

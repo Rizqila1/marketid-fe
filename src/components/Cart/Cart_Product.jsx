@@ -98,7 +98,7 @@ export default function CartProduct(props) {
           </>
         ) : (
           <>
-            <span className="subheading__2">{data.qty}x</span>
+            <span className="display_price subheading__2">{data.qty}x</span>
             <h5 className="display_price subheading__2 m-0">
               {"Rp. " +
                 convertFormatCurrency(

@@ -39,10 +39,10 @@ export default function ProfilePage() {
       <ABreadcrumb options={options} />
 
       <Row className="mt-4">
-        <Col xs={3}>
+        <Col lg={3} xs={12} className="mb-sm-4 mb-4">
           <AListGroup menus={menus} />
         </Col>
-        <Col xs={9}>
+        <Col lg={9} xs={12}>
           <CardProfile />
         </Col>
       </Row>

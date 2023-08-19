@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import CartProduct from "../../components/Cart/Cart_Product";
 import ProductNotFound from "../../components/Products/Pro_NotFound";
 import handleErrorMessage from "../../utils/handleErrorMessage";
 import CartCheckout from "../../components/Cart/Cart_Checkout";
+import CardInvoice from "../../components/Payment/Pay_CardInvoice";
 
 export default function PaymentPage() {
   const { invoice } = useParams();
@@ -104,47 +105,13 @@ export default function PaymentPage() {
       <ABreadcrumb options={options} />
 
       <Row>
-        <Col lg="12" className="mt-3">
-          <Card
-            className="rounded-0 mb-2"
-            style={{
-              boxShadow:
-                "0.3rem 0.5rem 0.5rem 0rem #0391FC40, 0rem 0.3rem 0.3rem 0rem #00000040",
-            }}
-          >
-            <Card.Body>
-              <h2 className="text-primary heading__3 mb-3">Market.ID</h2>
-              <div className="d-flex justify-content-between">
-                <p className="paragraph__3 text-capitalize">
-                  Customer Name: {data.user?.full_name || "-"}
-                </p>
-                <p className="subheading__4">{invoice}</p>
-              </div>
-              <div className="d-flex justify-content-between">
-                <p className="paragraph__3">
-                  Customer Email: {data.user?.email || "-"}
-                </p>
-
-                {data.status ? (
-                  <p className="subheading__4 text-success">
-                    Status Payment Success
-                  </p>
-                ) : (
-                  <p className="subheading__4 text-warning">
-                    Status Waiting Payment
-                  </p>
-                )}
-              </div>
-            </Card.Body>
-          </Card>
+        <Col lg="12" xs="12" className="mt-3">
+          <CardInvoice invoice={invoice} data={data} />
         </Col>
 
-        <Col lg="8">
-          <div
-            style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}
-            className="my-2"
-          >
-            {carts?.length ? (
+        <Col lg="8" xs="12">
+          {carts.length <= 4 ? (
+            carts?.length ? (
               carts.map((data, index) => (
                 <CartProduct
                   data={data}
@@ -154,11 +121,28 @@ export default function PaymentPage() {
               ))
             ) : (
               <ProductNotFound message={"Your Cart Is Empty"} />
-            )}
-          </div>
+            )
+          ) : (
+            <div
+              style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}
+              className="my-2"
+            >
+              {carts?.length ? (
+                carts.map((data, index) => (
+                  <CartProduct
+                    data={data}
+                    key={`item-cart${data.name}`}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <ProductNotFound message={"Your Cart Is Empty"} />
+              )}
+            </div>
+          )}
         </Col>
 
-        <Col lg="4">
+        <Col lg="4" xs="12">
           <CartCheckout
             isCheckout={true}
             detailPrice={detailPrice}

@@ -30,8 +30,8 @@ export default function CartPage() {
 
       <Row>
         <Col lg="8" className="px-3">
-          <div style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}>
-            {dataProduct.length ? (
+          {dataProduct.length <= 4 ? (
+            dataProduct.length ? (
               dataProduct.map((data, index) => (
                 <CartProduct
                   data={data}
@@ -42,8 +42,23 @@ export default function CartPage() {
               ))
             ) : (
               <ProductNotFound message={"Your Cart Is Empty"} />
-            )}
-          </div>
+            )
+          ) : (
+            <div style={{ height: "calc(100vh - 15rem)", overflowY: "auto" }}>
+              {dataProduct.length ? (
+                dataProduct.map((data, index) => (
+                  <CartProduct
+                    data={data}
+                    key={`item-cart${data._id}`}
+                    index={index}
+                    isAction={true}
+                  />
+                ))
+              ) : (
+                <ProductNotFound message={"Your Cart Is Empty"} />
+              )}
+            </div>
+          )}
         </Col>
 
         <Col lg="4">
