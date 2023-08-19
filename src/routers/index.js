@@ -8,7 +8,7 @@ import {
 import App from "../App";
 
 // LAYOUTS
-import LayoutProduct from "../layouts/L_Products";
+import LayoutProduct from "../layouts/L_Products.jsx";
 import LayoutLogin from "../layouts/L_Login";
 import LayoutProfile from "../layouts/L_Profile";
 import LayoutPayment from "../layouts/L_Payment";
