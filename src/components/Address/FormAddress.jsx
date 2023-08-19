@@ -102,9 +102,9 @@ export default function FormAddress({ detail, isEdit = false }) {
       dispatch({ type: "SET_LOADING", value: true });
 
       axios
-        .get(`/api-region/provinces.json`)
+        .get(`${process.env.REACT_APP_BASE_URL}/provinces`)
         .then((response) => {
-          setDataProvince(response.data);
+          setDataProvince(response.data.data);
         })
         .catch((error) => {
           const message = error.response?.data?.message;
@@ -153,9 +153,9 @@ export default function FormAddress({ detail, isEdit = false }) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .get(`/api-region/regencies/${id}.json`)
+      .get(`${process.env.REACT_APP_BASE_URL}/regencies/${id}`)
       .then((response) => {
-        setDataRegency(response.data);
+        setDataRegency(response.data.data);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -188,9 +188,9 @@ export default function FormAddress({ detail, isEdit = false }) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .get(`/api-region/districts/${id}.json`)
+      .get(`${process.env.REACT_APP_BASE_URL}/districts/${id}`)
       .then((response) => {
-        setDataDistrict(response.data);
+        setDataDistrict(response.data.data);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -222,9 +222,9 @@ export default function FormAddress({ detail, isEdit = false }) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .get(`/api-region/villages/${id}.json`)
+      .get(`${process.env.REACT_APP_BASE_URL}/villages/${id}`)
       .then((response) => {
-        setDataVillage(response.data);
+        setDataVillage(response.data.data);
       })
       .catch((error) => {
         const message = error.response?.data?.message;
@@ -251,7 +251,33 @@ export default function FormAddress({ detail, isEdit = false }) {
   function handleOnSubmit(form) {
     if (!isEdit) createAddress(form);
     else {
-      editAddress(form);
+      const regency = dataRegency.find(
+        (regency) => regency.id === form.regency._id
+      );
+      const district = dataDistrict.find(
+        (district) => district.id === form.district._id
+      );
+      const village = dataVillage.find(
+        (village) => village.id === form.village._id
+      );
+
+      const data = {
+        ...form,
+        regency: {
+          _id: regency.id,
+          name: regency.name,
+        },
+        district: {
+          _id: district.id,
+          name: district.name,
+        },
+        village: {
+          _id: village.id,
+          name: village.name,
+        },
+      };
+
+      editAddress(data);
     }
   }
 
