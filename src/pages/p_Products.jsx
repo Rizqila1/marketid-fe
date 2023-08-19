@@ -85,49 +85,32 @@ export default function Products() {
       </section>
 
       <Row className="mt-4">
-        {data.map((product, index) => (
-          <Col
-            key={`product-${index}`}
-            className="p-2 pt-0 mb-3"
-            lg="2"
-            md="4"
-            sm="6"
-            xs="12"
-          >
-            {/* SHOW SKELETON CARD WHILE LOADING */}
-            {loading ? (
-              <SkeletonCard />
-            ) : (
-              <div className="display_card">
-                <Card
-                  style={{
-                    border: "0.06rem solid #ACB5BD",
-                    boxShadow: "0rem 0.13rem 0.3rem 0rem #00000040",
-                  }}
-                >
-                  <Container className="p-2 pb-0">
-                    {/* SHOW BUTTON ADD TO CART IF USER HAVE TOKEN */}
-                    {token ? (
-                      <div className="img_box">
-                        <div className="img_bg" />
-                        <Card.Img
-                          className="img_product pb-0"
-                          variant="top"
-                          src={product.image?.url || defaultImage}
-                          alt={`product-${product.name}`}
-                          height="161"
-                        />
-                        <Button
-                          className="w-100"
-                          variant="primary"
-                          onClick={() => handleCart(product)}
-                        >
-                          Add To Cart
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="clickable_card">
-                        <Button className="p-0 w-100" href="/marketid/login">
+        {data &&
+          data?.map((product, index) => (
+            <Col
+              key={`product-${index}`}
+              className="p-2 pt-0 mb-3"
+              lg="2"
+              md="4"
+              sm="6"
+              xs="12"
+            >
+              {/* SHOW SKELETON CARD WHILE LOADING */}
+              {loading ? (
+                <SkeletonCard />
+              ) : (
+                <div className="display_card">
+                  <Card
+                    style={{
+                      border: "0.06rem solid #ACB5BD",
+                      boxShadow: "0rem 0.13rem 0.3rem 0rem #00000040",
+                    }}
+                  >
+                    <Container className="p-2 pb-0">
+                      {/* SHOW BUTTON ADD TO CART IF USER HAVE TOKEN */}
+                      {token ? (
+                        <div className="img_box">
+                          <div className="img_bg" />
                           <Card.Img
                             className="img_product pb-0"
                             variant="top"
@@ -135,36 +118,54 @@ export default function Products() {
                             alt={`product-${product.name}`}
                             height="161"
                           />
-                        </Button>
-                      </div>
-                    )}
-                  </Container>
-                  <Card.Body className="pb-0 ps-2 w-100 pe-2">
-                    <Card.Subtitle className="paragraph__2">
-                      {product.name}
-                    </Card.Subtitle>
-                    <Card.Text className="paragraph__4 my-2 text-primary text-capitalize">
-                      {product.category.name}
-                    </Card.Text>
-                    <Card.Title className="subheading__2">
-                      {"Rp. " + convertFormatCurrency(product.price)}
-                    </Card.Title>
+                          <Button
+                            className="w-100"
+                            variant="primary"
+                            onClick={() => handleCart(product)}
+                          >
+                            Add To Cart
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="clickable_card">
+                          <Button className="p-0 w-100" href="/marketid/login">
+                            <Card.Img
+                              className="img_product pb-0"
+                              variant="top"
+                              src={product.image?.url || defaultImage}
+                              alt={`product-${product.name}`}
+                              height="161"
+                            />
+                          </Button>
+                        </div>
+                      )}
+                    </Container>
+                    <Card.Body className="pb-0 ps-2 w-100 pe-2">
+                      <Card.Subtitle className="paragraph__2">
+                        {product.name}
+                      </Card.Subtitle>
+                      <Card.Text className="paragraph__4 my-2 text-primary text-capitalize">
+                        {product.category.name}
+                      </Card.Text>
+                      <Card.Title className="subheading__2">
+                        {"Rp. " + convertFormatCurrency(product.price)}
+                      </Card.Title>
 
-                    {token && user && (
-                      <Button
-                        className="display_button mb-2"
-                        variant="primary"
-                        onClick={() => handleCart(product)}
-                      >
-                        Add To Cart
-                      </Button>
-                    )}
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
-          </Col>
-        ))}
+                      {token && user && (
+                        <Button
+                          className="display_button mb-2"
+                          variant="primary"
+                          onClick={() => handleCart(product)}
+                        >
+                          Add To Cart
+                        </Button>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </div>
+              )}
+            </Col>
+          ))}
       </Row>
 
       <ComponentPagination
