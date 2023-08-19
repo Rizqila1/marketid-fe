@@ -18,7 +18,7 @@ export default function ProductProfile() {
 
   useEffect(() => {
     axios
-      .get(`/api/users/details/${id}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users/details/${id}`)
       .then((response) => {
         setData(response.data.data);
       })

@@ -48,7 +48,7 @@ export default function CardProfile() {
       dispatch({ type: "SET_LOADING", value: true });
 
       axios
-        .get(`/api/users/details/${id}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/users/details/${id}`)
         .then((response) => {
           const details = response.data.data;
 
@@ -84,7 +84,7 @@ export default function CardProfile() {
     // LOADING
     dispatch({ type: "SET_LOADING", value: true });
     axios
-      .put(`/api/users/update/${id}`, formData)
+      .put(`${process.env.REACT_APP_BASE_URL}/users/update/${id}`, formData)
       .then((response) => {
         const message = response.data.message;
 

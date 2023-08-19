@@ -54,7 +54,7 @@ export default function EditAddressPage() {
       dispatch({ type: "SET_LOADING", value: true });
 
       axios
-        .get(`/api/address/detail/${id}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/address/detail/${id}`)
         .then((response) => {
           setDetail(response.data.data);
         })

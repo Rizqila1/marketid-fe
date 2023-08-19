@@ -35,7 +35,9 @@ export default function Products() {
 
     setLoading(true);
     axios
-      .get("/api/products", { params: { ...storeParams } })
+      .get(`${process.env.REACT_APP_BASE_URL}/products`, {
+        params: { ...storeParams },
+      })
       .then((response) => {
         setData(response.data.data);
         setPagination(response.data.pagination);

@@ -25,7 +25,9 @@ export default function CardAddressSection() {
       setLoading(true);
       dispatch({ type: "SET_LOADING", value: true });
       axios
-        .get("/api/address/list", { params: { ...storeParams } })
+        .get(`${process.env.REACT_APP_BASE_URL}/address/list`, {
+          params: { ...storeParams },
+        })
         .then((response) => {
           setData(response.data.data);
           setPagination(response.data.pagination);
@@ -72,7 +74,7 @@ export default function CardAddressSection() {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .delete(`/api/address/delete/${id}`)
+      .delete(`${process.env.REACT_APP_BASE_URL}/address/delete/${id}`)
       .then((response) => {
         const message = response.data.message;
 

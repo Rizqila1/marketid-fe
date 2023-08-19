@@ -259,7 +259,7 @@ export default function FormAddress({ detail, isEdit = false }) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .post("/api/address/create", payload)
+      .post(`${process.env.REACT_APP_BASE_URL}/address/create`, payload)
       .then((response) => {
         const message = response.data.message;
 
@@ -286,7 +286,10 @@ export default function FormAddress({ detail, isEdit = false }) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .put(`/api/address/update/${detail._id}`, payload)
+      .put(
+        `${process.env.REACT_APP_BASE_URL}/address/update/${detail._id}`,
+        payload
+      )
       .then((response) => {
         const message = response.data.message;
 

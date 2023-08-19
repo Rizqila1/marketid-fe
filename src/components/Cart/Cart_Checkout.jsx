@@ -2,11 +2,13 @@ import { Card, Container, Form, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+
 import { axiosInstance as axios } from "../../config/httpsAxios";
-import convertFormatCurrency from "../../utils/convertFormatCurrency";
-import handleErrorMessage from "../../utils/handleErrorMessage";
 import CartModalComponent from "./Cart_Modal";
 import Loading3 from "../Loading3";
+
+import handleErrorMessage from "../../utils/handleErrorMessage";
+import convertFormatCurrency from "../../utils/convertFormatCurrency";
 import convertUppercaseEachWord from "../../utils/convertUppercaseEachWord";
 
 export default function CartCheckout(props) {
@@ -42,7 +44,7 @@ export default function CartCheckout(props) {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .get("/api/address/list")
+      .get(`${process.env.REACT_APP_BASE_URL}/address/list`)
       .then((response) => {
         setData(response.data.data);
       })
@@ -65,7 +67,7 @@ export default function CartCheckout(props) {
       setLoading(true);
 
       axios
-        .get(`/api/address/detail/${idAddress}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/address/detail/${idAddress}`)
         .then((response) => {
           const { province, district, regency, village, passcode, address } =
             response.data.data;
@@ -86,6 +88,14 @@ export default function CartCheckout(props) {
         });
     }
   }, [idAddress, dispatch]);
+
+  function handleFullAddress() {
+    if (!fullAddress.length) {
+      return "-";
+    } else {
+      return fullAddress;
+    }
+  }
 
   // FORM SELECT ADDRESS
   function selectAddressById(id) {
@@ -118,7 +128,11 @@ export default function CartCheckout(props) {
       {isCheckout ? (
         <Container className="pt-3">
           <h5 className="subheading__4">
-            {loading ? <Loading3 /> : convertUppercaseEachWord(fullAddress)}
+            {loading ? (
+              <Loading3 />
+            ) : (
+              convertUppercaseEachWord(handleFullAddress())
+            )}
           </h5>
 
           <section className="d-flex justify-content-between">

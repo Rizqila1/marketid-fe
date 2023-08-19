@@ -43,7 +43,7 @@ export default function RegisterPage() {
   function handleRegister(form) {
     dispatch({ type: "SET_LOADING", value: true });
     axios
-      .post("/api/users/register", form)
+      .post(`${process.env.REACT_APP_BASE_URL}/users/register`, form)
       .then((response) => {
         const message = response.data.message;
 

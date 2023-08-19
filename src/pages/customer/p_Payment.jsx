@@ -46,7 +46,7 @@ export default function PaymentPage() {
       dispatch({ type: "SET_LOADING", value: true });
 
       axios
-        .get(`/api/checkout/detail/${invoice}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/checkout/detail/${invoice}`)
         .then((response) => {
           setData(response.data.data);
 
@@ -80,7 +80,9 @@ export default function PaymentPage() {
     dispatch({ type: "SET_LOADING", value: true });
 
     axios
-      .put(`/api/checkout/confirm/${invoice}`, { status: true })
+      .put(`${process.env.REACT_APP_BASE_URL}/checkout/confirm/${invoice}`, {
+        status: true,
+      })
       .then((response) => {
         setIsUpdate(true);
         toast(handleErrorMessage("Payment Success"), {

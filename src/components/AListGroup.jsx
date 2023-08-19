@@ -14,7 +14,7 @@ export default function AListGroup(props) {
     const id = user._id;
     dispatch({ type: "SET_LOADING", value: true });
     axios
-      .post(`/api/users/logout/${id}`)
+      .post(`${process.env.REACT_APP_BASE_URL}/users/logout/${id}`)
       .then((response) => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");

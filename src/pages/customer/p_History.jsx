@@ -62,7 +62,7 @@ export default function HistoryPage() {
     if (isLoad) {
       setLoading(true);
       axios
-        .get(`/api/checkout/history/${id}`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/checkout/history/${id}`, {
           params: { ...storeParams },
         })
         .then((response) => {
