@@ -73,6 +73,7 @@ export default function FormAddress({ detail, isEdit = false }) {
       formik.setFieldValue("passcode", detail.passcode);
       formik.setFieldValue("address", detail.address);
 
+      console.log(detail);
       setIsLoadProvince(true);
       // getOptionsRegency(detail.province._id);
       getOptionsDistrict(detail.regency._id);
