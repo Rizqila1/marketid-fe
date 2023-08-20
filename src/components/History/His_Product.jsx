@@ -38,6 +38,16 @@ export default function HistoryProduct(props) {
           {"Rp. " + convertFormatCurrency(item.total)}
         </h5>
 
+        {item.status ? (
+          <h5 className="display_price subheading__3 m-0 text-truncate text-success">
+            Payment Success
+          </h5>
+        ) : (
+          <h5 className="display_price subheading__3 m-0 text-truncate text-warning">
+            Waiting Payment
+          </h5>
+        )}
+
         <div className="d-flex justify-content-end align-items-center">
           <Button
             variant="success"
