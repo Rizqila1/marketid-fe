@@ -74,10 +74,10 @@ export default function FormAddress({ detail, isEdit = false }) {
       formik.setFieldValue("address", detail.address);
 
       console.log(detail);
-      setIsLoadProvince(true);
-      // getOptionsRegency(detail.province._id);
       getOptionsDistrict(detail.regency._id);
       getOptionsVillage(detail.district._id);
+      getOptionsRegency(detail.province._id);
+      setIsLoadProvince(true);
 
       handleChangeProvince(
         { target: { name: "province._id", value: detail.province._id } },
