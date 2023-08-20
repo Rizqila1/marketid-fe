@@ -68,11 +68,13 @@ export default function FormAddress({ detail, isEdit = false }) {
   // PROPS isEdit
   useEffect(() => {
     if (isEdit && JSON.stringify(detail) !== "{}") {
+      dispatch({ type: "SET_LOADING", value: true });
       formik.setFieldValue("name", detail.name);
       formik.setFieldValue("passcode", detail.passcode);
       formik.setFieldValue("address", detail.address);
 
       setIsLoadProvince(true);
+      // getOptionsRegency(detail.province._id);
       getOptionsDistrict(detail.regency._id);
       getOptionsVillage(detail.district._id);
 
@@ -80,18 +82,25 @@ export default function FormAddress({ detail, isEdit = false }) {
         { target: { name: "province._id", value: detail.province._id } },
         "province.name"
       );
-      handleChangeRegency(
-        { target: { name: "regency._id", value: detail.regency._id } },
-        "regency.name"
-      );
-      handleChangeDistrict(
-        { target: { name: "district._id", value: detail.district._id } },
-        "district.name"
-      );
-      handleChangeVillage(
-        { target: { name: "village._id", value: detail.village._id } },
-        "village.name"
-      );
+
+      const timeout = setTimeout(() => {
+        handleChangeRegency(
+          { target: { name: "regency._id", value: detail.regency._id } },
+          "regency.name"
+        );
+        handleChangeDistrict(
+          { target: { name: "district._id", value: detail.district._id } },
+          "district.name"
+        );
+        handleChangeVillage(
+          { target: { name: "village._id", value: detail.village._id } },
+          "village.name"
+        );
+
+        dispatch({ type: "SET_LOADING", value: false });
+
+        clearTimeout(timeout);
+      }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, detail]);
@@ -144,9 +153,9 @@ export default function FormAddress({ detail, isEdit = false }) {
 
     if (findById) getOptionsRegency(findById.id);
 
-    formik.setFieldValue("regency._id", "");
-    formik.setFieldValue("district._id", "");
-    formik.setFieldValue("village._id", "");
+    formik.setFieldValue("regency", { _id: "", name: "" });
+    formik.setFieldValue("district", { _id: "", name: "" });
+    formik.setFieldValue("village", { _id: "", name: "" });
   }
 
   // GET REGENCY
@@ -180,8 +189,8 @@ export default function FormAddress({ detail, isEdit = false }) {
     formik.setFieldValue(key, findById ? findById.name : "");
 
     if (findById) getOptionsDistrict(findById.id);
-    formik.setFieldValue("district._id", "");
-    formik.setFieldValue("village._id", "");
+    formik.setFieldValue("district", { _id: "", name: "" });
+    formik.setFieldValue("village", { _id: "", name: "" });
   }
 
   // GET DISTRICT
@@ -215,7 +224,7 @@ export default function FormAddress({ detail, isEdit = false }) {
     formik.setFieldValue(key, findById ? findById.name : "");
 
     if (findById) getOptionsVillage(findById.id);
-    formik.setFieldValue("village._id", "");
+    formik.setFieldValue("village", { _id: "", name: "" });
   }
 
   // GET VILLAGE
@@ -266,8 +275,8 @@ export default function FormAddress({ detail, isEdit = false }) {
       const data = {
         ...form,
         regency: {
-          _id: regency.id,
-          name: regency.name,
+          _id: regency?.id,
+          name: regency?.name,
         },
         district: {
           _id: district.id,
