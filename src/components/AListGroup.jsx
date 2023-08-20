@@ -53,12 +53,13 @@ export default function AListGroup(props) {
           active={item.link === location.pathname}
           action
           onClick={() => handleGoToLink(item.link)}
+          className="fw-semibold"
         >
           {item.title}
         </ListGroup.Item>
       ))}
       <ListGroup.Item
-        className="text-danger"
+        className="text-danger fw-semibold"
         action
         onClick={() => handleLogout()}
       >

@@ -145,7 +145,7 @@ export default function CardAddressSection() {
             <Button
               href="/marketid/address/create"
               variant="success"
-              className="button_hover7 create_button w-100 d-flex justify-content-center align-items-center"
+              className="button_hover7 create_button w-100 d-flex justify-content-center align-items-center fw-semibold"
             >
               Create<i className="bi bi-pencil-fill mx-1"></i>
             </Button>
