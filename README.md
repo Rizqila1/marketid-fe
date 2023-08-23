@@ -1,5 +1,5 @@
 ## Market Indonesia
-Market Indonesia or Market.ID is an e-commerce website. This project created on the purpose of learning, using self-made API that created with NodeJS. Here's the final result, [Click Here](https://marketid-fe.vercel.app/marketid)
+Market Indonesia or Market.ID is an e-commerce website. This project created on the purpose of learning, using self-made API that created with NodeJS x ExpressJS. Here's the final result, [Click Here](https://marketid-fe.vercel.app/marketid)
 
 ## Stack
 - React JS
