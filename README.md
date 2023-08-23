@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+## Market Indonesia
+Market Indonesia or Market.ID is an e-commerce website. This project created on the purpose of learning, using self-made API that created with NodeJS. Here's the final result, [Click Here](https://marketid-fe.vercel.app/marketid)
+
+## Stack
+- React JS
+- Bootstrap
+- React-Bootstrap
+- Router Guard
+- Formik
+- Axios
+- React-Redux
+- Layouting
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
